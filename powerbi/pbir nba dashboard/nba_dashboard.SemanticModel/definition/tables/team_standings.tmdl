@@ -129,7 +129,9 @@ table team_standings
 		source =
 				let
 				    Source = Csv.Document(
-				        Web.Contents(GitHubRawBaseURL & "team_standings.csv"),
+				        Web.Contents(
+				            "https://raw.githubusercontent.com/Johnsinvi/nba-analytics-dashboard/main/data/raw/team_standings.csv"
+				        ),
 				        [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]
 				    ),
 				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
