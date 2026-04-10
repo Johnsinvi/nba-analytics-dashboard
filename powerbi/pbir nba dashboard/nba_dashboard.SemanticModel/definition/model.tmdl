@@ -12,8 +12,6 @@ annotation PBI_QueryOrder = ["GitHubRawBaseURL","player_stats","team_standings",
 
 annotation PBI_ProTooling = ["DevMode"]
 
-ref cultureInfo en-US
-
 ref table player_stats
 ref table team_standings
 ref table game_log

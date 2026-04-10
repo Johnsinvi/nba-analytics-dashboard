@@ -114,12 +114,4 @@ table _Measures
 
 		annotation PBI_FormatHint = {"isDecimal":true}
 
-	partition Measures = m
-		mode: import
-		source =
-				let
-				    Source = #table(type table [_dummy = text], {})
-				in
-				    Source
-
 	annotation PBI_ResultType = Table
