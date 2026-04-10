@@ -1,11 +1,8 @@
-relationship player_stats_to_advanced
-	fromTable: player_stats
-	fromColumn: player_id
-	toTable: advanced_stats
-	toColumn: player_id
+relationship nba_player_stats_to_advanced
+	fromColumn: player_stats.player_id
+	toColumn: advanced_stats.player_id
 
-relationship player_stats_to_game_log_team
-	fromTable: player_stats
-	fromColumn: Team
-	toTable: team_standings
-	toColumn: Team
+relationship nba_player_stats_to_team_standings
+	fromColumn: player_stats.Team
+	toColumn: team_standings.Team
+
