@@ -144,7 +144,7 @@ table player_stats
 		source =
 				let
 				    Source = Csv.Document(
-				        File.Contents(__NBADataPath & "player_stats.csv"),
+				        Web.Contents(OneDriveFolderURL & "player_stats.csv"),
 				        [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]
 				    ),
 				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
