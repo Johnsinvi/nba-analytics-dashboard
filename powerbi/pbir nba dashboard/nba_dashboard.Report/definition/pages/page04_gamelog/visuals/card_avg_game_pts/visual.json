@@ -10,9 +10,9 @@
           "projections": [
             {
               "field": {
-                "Measure": { "Expression": { "SourceRef": { "Entity": "Measures" } }, "Property": "Avg Game Points" }
+                "Measure": { "Expression": { "SourceRef": { "Entity": "_Measures" } }, "Property": "Avg Game Points" }
               },
-              "queryRef": "Measures.Avg Game Points",
+              "queryRef": "_Measures.Avg Game Points",
               "nativeQueryRef": "Avg Pts"
             }
           ]

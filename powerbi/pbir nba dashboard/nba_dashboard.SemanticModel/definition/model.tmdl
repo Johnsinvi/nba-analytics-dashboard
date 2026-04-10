@@ -8,7 +8,7 @@ model Model
 
 annotation __PBI_TimeIntelligenceEnabled = 0
 
-annotation PBI_QueryOrder = ["GitHubRawBaseURL","player_stats","team_standings","game_log","advanced_stats","Measures"]
+annotation PBI_QueryOrder = ["GitHubRawBaseURL","player_stats","team_standings","game_log","advanced_stats","_Measures"]
 
 annotation PBI_ProTooling = ["DevMode"]
 
@@ -16,6 +16,6 @@ ref table player_stats
 ref table team_standings
 ref table game_log
 ref table advanced_stats
-ref table Measures
+ref table _Measures
 
 ref cultureInfo en-US

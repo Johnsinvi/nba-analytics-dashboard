@@ -11,11 +11,11 @@
             {
               "field": {
                 "Measure": {
-                  "Expression": { "SourceRef": { "Entity": "Measures" } },
+                  "Expression": { "SourceRef": { "Entity": "_Measures" } },
                   "Property": "Avg Rebounds"
                 }
               },
-              "queryRef": "Measures.Avg Rebounds",
+              "queryRef": "_Measures.Avg Rebounds",
               "nativeQueryRef": "Avg Rebounds"
             }
           ]

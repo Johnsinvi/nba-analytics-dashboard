@@ -10,9 +10,9 @@
           "projections": [
             {
               "field": {
-                "Measure": { "Expression": { "SourceRef": { "Entity": "Measures" } }, "Property": "Avg USG%" }
+                "Measure": { "Expression": { "SourceRef": { "Entity": "_Measures" } }, "Property": "Avg USG%" }
               },
-              "queryRef": "Measures.Avg USG%",
+              "queryRef": "_Measures.Avg USG%",
               "nativeQueryRef": "Avg USG%"
             }
           ]

@@ -10,9 +10,9 @@
           "projections": [
             {
               "field": {
-                "Measure": { "Expression": { "SourceRef": { "Entity": "Measures" } }, "Property": "Win Rate (Games)" }
+                "Measure": { "Expression": { "SourceRef": { "Entity": "_Measures" } }, "Property": "Win Rate (Games)" }
               },
-              "queryRef": "Measures.Win Rate (Games)",
+              "queryRef": "_Measures.Win Rate (Games)",
               "nativeQueryRef": "Win Rate"
             }
           ]

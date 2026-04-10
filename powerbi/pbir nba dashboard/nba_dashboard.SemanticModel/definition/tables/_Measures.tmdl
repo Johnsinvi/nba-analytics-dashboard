@@ -1,4 +1,4 @@
-table Measures
+table _Measures
 	lineageTag: a1b2c3d4-0005-0001-0001-000000000001
 
 	measure 'Avg Points' =

@@ -10,9 +10,9 @@
           "projections": [
             {
               "field": {
-                "Measure": { "Expression": { "SourceRef": { "Entity": "Measures" } }, "Property": "Avg Net Rating" }
+                "Measure": { "Expression": { "SourceRef": { "Entity": "_Measures" } }, "Property": "Avg Net Rating" }
               },
-              "queryRef": "Measures.Avg Net Rating",
+              "queryRef": "_Measures.Avg Net Rating",
               "nativeQueryRef": "Avg Net Rating"
             }
           ]
