@@ -1,0 +1,148 @@
+table calendar
+	lineageTag: 52e48045-d616-41ae-aaa3-670579e36d7b
+
+	column Date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 769a468d-d86f-4459-8e60-201e8f54ac12
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 2895bd7f-117a-4574-84f9-b51ccaf096e9
+		summarizeBy: none
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: int64
+		formatString: 0
+		lineageTag: 252a8fcd-9cfb-4cf3-ba2e-6c8ad9298ad4
+		summarizeBy: none
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Name'
+		dataType: string
+		lineageTag: 6c3e9a81-972f-40f6-9b2f-0ced7559399f
+		summarizeBy: none
+		sourceColumn: Month Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column YearMonth
+		dataType: string
+		lineageTag: 01d3d404-f6d0-4437-9a3f-4885663c0b90
+		summarizeBy: none
+		sourceColumn: YearMonth
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'YearMonth Sort'
+		dataType: int64
+		formatString: 0
+		lineageTag: 566d910e-8d03-49b2-83d6-761fe31e43d1
+		summarizeBy: none
+		sourceColumn: YearMonth Sort
+
+		annotation SummarizationSetBy = Automatic
+
+	column Decade
+		dataType: int64
+		formatString: 0
+		lineageTag: 20643520-5e36-4405-b386-436d09d3a89e
+		summarizeBy: none
+		sourceColumn: Decade
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Olympic Cycle'
+		dataType: string
+		lineageTag: 63621194-6548-4af3-b7b1-c7c31d6e8c73
+		summarizeBy: none
+		sourceColumn: Olympic Cycle
+
+		annotation SummarizationSetBy = Automatic
+
+	partition calendar = m
+		mode: import
+		source =
+				let
+				    // ===== PARÂMETROS =====
+				    StartYear = 1896,
+				    EndYear = 2022,
+				
+				    StartDate = #date(StartYear, 1, 1),
+				    EndDate = #date(EndYear, 12, 31),
+				
+				    // ===== LISTA DE DATAS =====
+				    Dates = List.Dates(
+				        StartDate,
+				        Duration.Days(EndDate - StartDate) + 1,
+				        #duration(1, 0, 0, 0)
+				    ),
+				
+				    Calendar = Table.FromList(Dates, Splitter.SplitByNothing(), {"Date"}),
+				
+				    // ===== TIPOS =====
+				    Type = Table.TransformColumnTypes(
+				        Calendar,
+				        {{"Date", type date}}
+				    ),
+				
+				    // ===== ATRIBUTOS DE DATA =====
+				    Year = Table.AddColumn(Type, "Year", each Date.Year([Date]), Int64.Type),
+				    Month = Table.AddColumn(Year, "Month", each Date.Month([Date]), Int64.Type),
+				    MonthName = Table.AddColumn(Month, "Month Name", each Date.MonthName([Date]), type text),
+				
+				    YearMonth = Table.AddColumn(
+				        MonthName,
+				        "YearMonth",
+				        each Text.From([Year]) & "-" & Text.PadStart(Text.From([Month]), 2, "0"),
+				        type text
+				    ),
+				
+				    YearMonthSort = Table.AddColumn(
+				        YearMonth,
+				        "YearMonth Sort",
+				        each [Year] * 100 + [Month],
+				        Int64.Type
+				    ),
+				
+				    // ===== DÉCADA =====
+				    Decade = Table.AddColumn(
+				        YearMonthSort,
+				        "Decade",
+				        each Number.IntegerDivide([Year], 10) * 10,
+				        Int64.Type
+				    ),
+				
+				    // ===== CICLO OLÍMPICO =====
+				    OlympicCycle = Table.AddColumn(
+				        Decade,
+				        "Olympic Cycle",
+				        each
+				            if [Year] < 1924 then "Early Games"
+				            else if [Year] < 1948 then "Interwar Era"
+				            else if [Year] < 1968 then "Post-War Expansion"
+				            else if [Year] < 1988 then "Cold War Era"
+				            else if [Year] < 2008 then "Globalization Era"
+				            else "Modern Era",
+				        type text
+				    )
+				
+				in
+				    OlympicCycle
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

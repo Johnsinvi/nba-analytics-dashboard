@@ -1,0 +1,78 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "scatter_ts_usg",
+  "position": { "x": 620, "y": 130, "z": 1000, "height": 560, "width": 640, "tabOrder": 6000 },
+  "visual": {
+    "visualType": "scatterChart",
+    "query": {
+      "queryState": {
+        "Details": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": { "SourceRef": { "Entity": "advanced_stats" } },
+                  "Property": "Player"
+                }
+              },
+              "queryRef": "advanced_stats.Player",
+              "nativeQueryRef": "Player",
+              "active": true
+            }
+          ]
+        },
+        "X": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": { "SourceRef": { "Entity": "advanced_stats" } },
+                  "Property": "USG%"
+                }
+              },
+              "queryRef": "advanced_stats.USG%",
+              "nativeQueryRef": "USG%"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": { "SourceRef": { "Entity": "advanced_stats" } },
+                  "Property": "TS%"
+                }
+              },
+              "queryRef": "advanced_stats.TS%",
+              "nativeQueryRef": "TS%"
+            }
+          ]
+        },
+        "Size": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": { "SourceRef": { "Entity": "advanced_stats" } },
+                  "Property": "Net Rating"
+                }
+              },
+              "queryRef": "advanced_stats.Net Rating",
+              "nativeQueryRef": "Net Rating"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "categoryAxis": [{ "properties": { "showAxisTitle": { "expr": { "Literal": { "Value": "true" } } } } }],
+      "valueAxis": [{ "properties": { "showAxisTitle": { "expr": { "Literal": { "Value": "true" } } } } }]
+    },
+    "visualContainerObjects": {
+      "title": [{ "properties": { "show": { "expr": { "Literal": { "Value": "true" } } }, "text": { "expr": { "Literal": { "Value": "'USG% vs TS% (Bubble = Net Rating)'" } } }, "fontSize": { "expr": { "Literal": { "Value": "12D" } } }, "bold": { "expr": { "Literal": { "Value": "true" } } } } }],
+      "background": [{ "properties": { "show": { "expr": { "Literal": { "Value": "true" } } }, "color": { "solid": { "color": { "expr": { "Literal": { "Value": "'#F5F5F5'" } } } } }, "transparency": { "expr": { "Literal": { "Value": "0D" } } } } }]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

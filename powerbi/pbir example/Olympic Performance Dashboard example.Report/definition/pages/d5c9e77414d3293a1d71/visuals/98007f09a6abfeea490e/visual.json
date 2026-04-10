@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "98007f09a6abfeea490e",
+  "position": {
+    "x": 145.45454545454544,
+    "y": 459.99999999999994,
+    "z": 8000,
+    "height": 193.63636363636363,
+    "width": 723.63636363636363,
+    "tabOrder": 7000
+  },
+  "visual": {
+    "visualType": "htmlContent443BE3AD55E043BF878BED274D3A6865",
+    "query": {
+      "queryState": {
+        "content": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Olympic Athlete Cards ESPN GROUP v9"
+                }
+              },
+              "queryRef": "Medidas.Olympic Athlete Cards ESPN GROUP v9",
+              "nativeQueryRef": "Olympic Athlete Cards ESPN GROUP v9"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

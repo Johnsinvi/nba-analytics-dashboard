@@ -1,0 +1,10 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.0.0/schema.json",
+  "name": "2e6e591fbc3b0d12bd60",
+  "displayName": "Tolltip Country",
+  "displayOption": "ActualSize",
+  "height": 400,
+  "width": 330,
+  "visibility": "HiddenInViewMode",
+  "type": "Tooltip"
+}

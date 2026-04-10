@@ -1,0 +1,66 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "bar_net_rating",
+  "position": { "x": 20, "y": 130, "z": 1000, "height": 560, "width": 580, "tabOrder": 5000 },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": { "SourceRef": { "Entity": "advanced_stats" } },
+                  "Property": "Player"
+                }
+              },
+              "queryRef": "advanced_stats.Player",
+              "nativeQueryRef": "Player",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": { "SourceRef": { "Entity": "advanced_stats" } },
+                  "Property": "Net Rating"
+                }
+              },
+              "queryRef": "advanced_stats.Net Rating",
+              "nativeQueryRef": "Net Rating"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": { "SourceRef": { "Entity": "advanced_stats" } },
+                "Property": "Net Rating"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "categoryAxis": [{ "properties": { "show": { "expr": { "Literal": { "Value": "true" } } }, "showAxisTitle": { "expr": { "Literal": { "Value": "false" } } }, "maxMarginFactor": { "expr": { "Literal": { "Value": "50L" } } } } }],
+      "valueAxis": [{ "properties": { "show": { "expr": { "Literal": { "Value": "false" } } }, "showAxisTitle": { "expr": { "Literal": { "Value": "false" } } } } }],
+      "labels": [{ "properties": { "show": { "expr": { "Literal": { "Value": "true" } } } } }],
+      "dataPoint": [{ "properties": { "defaultColor": { "solid": { "color": { "expr": { "Literal": { "Value": "'#007A33'" } } } } } } }]
+    },
+    "visualContainerObjects": {
+      "title": [{ "properties": { "show": { "expr": { "Literal": { "Value": "true" } } }, "text": { "expr": { "Literal": { "Value": "'Net Rating by Player'" } } }, "fontSize": { "expr": { "Literal": { "Value": "12D" } } }, "bold": { "expr": { "Literal": { "Value": "true" } } } } }],
+      "background": [{ "properties": { "show": { "expr": { "Literal": { "Value": "true" } } }, "color": { "solid": { "color": { "expr": { "Literal": { "Value": "'#F5F5F5'" } } } } }, "transparency": { "expr": { "Literal": { "Value": "0D" } } } } }]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

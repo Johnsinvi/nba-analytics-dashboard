@@ -1,0 +1,41 @@
+relationship 7d0e2af4-6596-85c6-1d5c-5b48a384aaf6
+	fromColumn: results.'Game Slug'
+	toColumn: hosts.'Game Slug'
+
+relationship AutoDetected_b4fe89e7-5d17-437a-a0e1-2b3edd32f561
+	crossFilteringBehavior: bothDirections
+	fromColumn: 'athlete medals'.'Game Slug'
+	toColumn: hosts.'Game Slug'
+
+relationship b93f67a8-9be2-0d68-1bf4-27e552d11281
+	fromColumn: hosts.Season
+	toColumn: Season.Season
+
+relationship ed2f915b-aa14-4f54-068f-20b52a364a65
+	fromColumn: hosts.'Start Date'
+	toColumn: calendar.Date
+
+relationship a8c9f802-8bbb-7ccb-eff7-f26f3cf7349a
+	isActive: false
+	fromColumn: results.'Game Date'
+	toColumn: calendar.Date
+
+relationship 6b4d2b41-6151-fadc-7513-71537e1de219
+	fromColumn: 'athlete medals'.country_code
+	toColumn: countrys.country_code
+
+relationship 98b27732-8a5b-9df4-6598-8249e158cb05
+	crossFilteringBehavior: bothDirections
+	fromColumn: results.country_code
+	toColumn: countrys.country_code
+
+relationship 59268e81-9529-4a73-3baf-bdab2ee7793d
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: 'athlete medals'.'Athlete URL'
+	toColumn: athletes.'Athlete URL'
+
+relationship cb595684-59a4-23fa-d2d6-79ea4c0870e4
+	fromColumn: 'athlete medals'.Discipline
+	toColumn: dicipline.Discipline
+

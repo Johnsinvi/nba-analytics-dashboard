@@ -1,0 +1,139 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 1520.7661218630608,
+            "y": 13.614976234360594
+          },
+          "nodeIndex": "athletes",
+          "nodeLineageTag": "df337a61-faa7-4279-8c88-5c81296a8214",
+          "size": {
+            "height": 369.0424326616199,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 129,
+            "y": 0
+          },
+          "nodeIndex": "hosts",
+          "nodeLineageTag": "aed61c10-20f6-4a36-9a14-75c3a69e15f4",
+          "size": {
+            "height": 315.27016184843609,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 384.48467745656234,
+            "y": 455.17258265436993
+          },
+          "nodeIndex": "results",
+          "nodeLineageTag": "4488051f-a50d-4210-9a5d-c4dcbc4f5036",
+          "size": {
+            "height": 517.506856643277,
+            "width": 234
+          },
+          "zIndex": 8
+        },
+        {
+          "location": {
+            "x": 1685.0808839446318,
+            "y": 444.84913797083459
+          },
+          "nodeIndex": "Medidas",
+          "nodeLineageTag": "4dcd545f-1501-4690-a2ef-224284d1164d",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 1115.5766127171878,
+            "y": 0
+          },
+          "nodeIndex": "athlete medals",
+          "nodeLineageTag": "b0ab6665-5416-481e-a492-e197434d58b5",
+          "size": {
+            "height": 474.90242080593396,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 780.3415543240252,
+            "y": 602.84225611488557
+          },
+          "nodeIndex": "calendar",
+          "nodeLineageTag": "52e48045-d616-41ae-aaa3-670579e36d7b",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 359.86481993902009
+          },
+          "nodeIndex": "Season",
+          "nodeLineageTag": "e3c2c57a-124f-479b-b7e4-b9ae5992a357",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 1307.9307461011656,
+            "y": 957.99400900798753
+          },
+          "nodeIndex": "countrys",
+          "nodeLineageTag": "4304859e-5feb-4fd7-846a-fd9ce7369c2a",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 2000.2573288896583,
+            "y": 1096.3410148016769
+          },
+          "nodeIndex": "dicipline",
+          "nodeLineageTag": "029d0fab-a4cf-420c-953e-767390374b6c",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 44.905697313103978,
+      "pinKeyFieldsToTop": true,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

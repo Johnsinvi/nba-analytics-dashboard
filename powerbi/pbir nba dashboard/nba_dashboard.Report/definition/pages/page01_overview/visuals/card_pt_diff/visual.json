@@ -1,0 +1,31 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "card_pt_diff",
+  "position": { "x": 620, "y": 20, "z": 1000, "height": 90, "width": 180, "tabOrder": 4000 },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": { "SourceRef": { "Entity": "Measures" } },
+                  "Property": "Pt Differential"
+                }
+              },
+              "queryRef": "Measures.Pt Differential",
+              "nativeQueryRef": "Pt Differential"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [{ "properties": { "show": { "expr": { "Literal": { "Value": "true" } } }, "text": { "expr": { "Literal": { "Value": "'Avg Pt Differential'" } } }, "fontSize": { "expr": { "Literal": { "Value": "11D" } } }, "bold": { "expr": { "Literal": { "Value": "true" } } } } }],
+      "background": [{ "properties": { "color": { "solid": { "color": { "expr": { "Literal": { "Value": "'#552583'" } } } } }, "show": { "expr": { "Literal": { "Value": "true" } } }, "transparency": { "expr": { "Literal": { "Value": "0D" } } } } }]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

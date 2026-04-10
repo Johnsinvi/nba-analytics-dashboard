@@ -1,0 +1,298 @@
+table results
+	lineageTag: 4488051f-a50d-4210-9a5d-c4dcbc4f5036
+
+	column 'Medal (Raw)'
+		dataType: string
+		lineageTag: d7028396-f0e7-4ca6-a40a-94019947d756
+		summarizeBy: none
+		sourceColumn: Medal (Raw)
+
+		annotation SummarizationSetBy = Automatic
+
+	column Athletes
+		dataType: string
+		isHidden
+		lineageTag: f57254a6-0879-4f40-9fea-acc0cd3bbc6a
+		summarizeBy: none
+		sourceColumn: Athletes
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column rank_equal
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 2535ff83-62cc-4d30-bbe8-d44306b8a13a
+		summarizeBy: none
+		sourceColumn: rank_equal
+
+		annotation SummarizationSetBy = Automatic
+
+	column Rank
+		dataType: int64
+		formatString: 0
+		lineageTag: cf91058a-185a-4350-b930-a2ce180de9d8
+		summarizeBy: sum
+		sourceColumn: Rank
+
+		annotation SummarizationSetBy = Automatic
+
+	column country_code
+		dataType: string
+		lineageTag: 870c5cd2-7058-4b33-bcb7-3487a98872a5
+		summarizeBy: none
+		sourceColumn: country_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column athlete_url
+		dataType: string
+		isHidden
+		lineageTag: 9274e732-df96-44a4-b1bf-5ac9c73d17c0
+		summarizeBy: none
+		sourceColumn: athlete_url
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column athlete_full_name
+		dataType: string
+		isHidden
+		lineageTag: a2984248-242e-49b9-8ae2-d5bddd4c09f7
+		summarizeBy: none
+		sourceColumn: athlete_full_name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column value_unit
+		dataType: string
+		lineageTag: f5822d84-855c-42ea-b3c8-c0f51058c882
+		summarizeBy: none
+		sourceColumn: value_unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column value_type
+		dataType: string
+		lineageTag: c7873029-d643-4c59-8f3c-46ae6e73cb9d
+		summarizeBy: none
+		sourceColumn: value_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Discipline
+		dataType: string
+		lineageTag: 419986d4-74d3-4343-8d13-22435b25c538
+		summarizeBy: none
+		sourceColumn: Discipline
+
+		annotation SummarizationSetBy = Automatic
+
+	column Event
+		dataType: string
+		lineageTag: dc272414-498d-49d9-9a1f-5740ba690a16
+		summarizeBy: none
+		sourceColumn: Event
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Game Slug'
+		dataType: string
+		isHidden
+		lineageTag: ec6f5ece-71a1-42f0-b03a-b5081bf1ff5e
+		summarizeBy: none
+		sourceColumn: Game Slug
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Participant Type'
+		dataType: string
+		lineageTag: 76e5d9be-8aa1-48af-a827-5e2731a18842
+		summarizeBy: none
+		sourceColumn: Participant Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		lineageTag: 804dc327-fe1b-4ed3-af7b-2c02690b9597
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column NOC
+		dataType: string
+		lineageTag: 5bfd6a09-6a71-4565-a53a-b46e3b5d981f
+		summarizeBy: none
+		sourceColumn: NOC
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Result ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: a6738ae5-b12f-4fc4-b7e4-a46710966277
+		summarizeBy: count
+		sourceColumn: Result ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Medal Value'
+		dataType: int64
+		formatString: 0
+		lineageTag: 0c7ddce8-3c9d-4628-89ee-be7f5220acd4
+		summarizeBy: sum
+		sourceColumn: Medal Value
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Game Year'
+		dataType: int64
+		formatString: 0
+		lineageTag: aaf32f08-673e-4fe7-8f06-c31c63abd033
+		summarizeBy: sum
+		sourceColumn: Game Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Game Date' = ```
+			
+			LOOKUPVALUE(
+			    hosts[Start Date],
+			    hosts[Game Slug],
+			    results[Game Slug]
+			)
+			
+			```
+		formatString: General Date
+		lineageTag: 8dc45373-49a8-4071-9a44-b56ef69f65d2
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Flag = RELATED((countrys[Flag_URL]))
+		lineageTag: f90e304f-1153-49c5-81fd-75c6a4372423
+		dataCategory: ImageUrl
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition results = m
+		mode: import
+		source = ```
+				let
+				    Source = Csv.Document(
+				        Web.Contents(SourceURL & "olympic_results.csv"),
+				        [Delimiter=",", Columns=15, Encoding=65001, QuoteStyle=QuoteStyle.None]
+				    ),
+				
+				    Promote = Table.PromoteHeaders(
+				        Source,
+				        [PromoteAllScalars=true]
+				    ),
+				
+				    // Limpa Rank antes de converter
+				    CleanRank = Table.TransformColumns(
+				        Promote,
+				        {
+				            {
+				                "rank_position",
+				                each Text.Trim(Text.Clean(Text.From(_))),
+				                type text
+				            }
+				        }
+				    ),
+				
+				    // Converte Rank com tolerância
+				    SafeRank = Table.TransformColumns(
+				        CleanRank,
+				        {
+				            {
+				                "rank_position",
+				                each try Number.FromText(_) otherwise null,
+				                Int64.Type
+				            }
+				        }
+				    ),
+				
+				    Types = Table.TransformColumnTypes(
+				        SafeRank,
+				        {
+				            {"discipline_title", type text},
+				            {"event_title", type text},
+				            {"slug_game", type text},
+				            {"participant_type", type text},
+				            {"medal_type", type text},
+				            {"athletes", type text},
+				            {"rank_equal", type logical},
+				            {"country_name", type text},
+				            {"country_code", type text},
+				            {"country_3_letter_code", type text},
+				            {"athlete_url", type text},
+				            {"athlete_full_name", type text},
+				            {"value_unit", type text},
+				            {"value_type", type text}
+				        }
+				    ),
+				
+				    Rename = Table.RenameColumns(
+				        Types,
+				        {
+				            {"discipline_title","Discipline"},
+				            {"event_title","Event"},
+				            {"slug_game","Game Slug"},
+				            {"participant_type","Participant Type"},
+				            {"medal_type","Medal (Raw)"},
+				            {"athletes","Athletes"},
+				            {"rank_position","Rank"},
+				            {"country_name","Country"},
+				            {"country_3_letter_code","NOC"}
+				        }
+				    ),
+				
+				    // Extrai ano do slug
+				    AddYear =
+				    Table.AddColumn(
+				        Rename,
+				        "Game Year",
+				        each Number.FromText(Text.End([Game Slug],4)),
+				        Int64.Type
+				    ),
+				
+				    // Cria ID único
+				    AddIndex =
+				    Table.AddIndexColumn(
+				        AddYear,
+				        "Result ID",
+				        1, 1,
+				        Int64.Type
+				    ),
+				
+				    // Medal Value baseado no Rank
+				    MedalValue =
+				    Table.AddColumn(
+				        AddIndex,
+				        "Medal Value",
+				        each 
+				            if [Rank] = 1 then 3
+				            else if [Rank] = 2 then 2
+				            else if [Rank] = 3 then 1
+				            else 0,
+				        Int64.Type
+				    )
+				
+				in
+				    MedalValue
+				```
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

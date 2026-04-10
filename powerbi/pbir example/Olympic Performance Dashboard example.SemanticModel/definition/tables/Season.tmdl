@@ -1,0 +1,27 @@
+table Season
+	lineageTag: e3c2c57a-124f-479b-b7e4-b9ae5992a357
+
+	column Season
+		lineageTag: cab8b1ad-6817-4cd9-9323-9c4d408c1137
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Season]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Season = calculated
+		mode: import
+		source = ```
+				
+				DATATABLE(
+				    "Season", STRING,
+				    {
+				        {"Winter"},
+				        {"Summer"}
+				    }
+				)
+				
+				```
+
+	annotation PBI_Id = 8807ec33f0ce4b9aa577beeb9c915f67
+

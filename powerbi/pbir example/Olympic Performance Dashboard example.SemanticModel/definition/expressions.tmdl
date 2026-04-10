@@ -1,0 +1,7 @@
+expression SourceURL = "https://raw.githubusercontent.com/stephbruno/Olympic-Summer-Winter-Games-1896-2022/refs/heads/main/" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 7b8ac4a6-dc87-4760-aa7d-d81ed63ebe80
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+

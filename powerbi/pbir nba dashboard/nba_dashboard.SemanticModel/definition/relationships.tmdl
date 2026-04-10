@@ -1,0 +1,11 @@
+relationship player_stats_to_advanced
+	fromTable: player_stats
+	fromColumn: player_id
+	toTable: advanced_stats
+	toColumn: player_id
+
+relationship player_stats_to_game_log_team
+	fromTable: player_stats
+	fromColumn: Team
+	toTable: team_standings
+	toColumn: Team

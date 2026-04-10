@@ -1,0 +1,80 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "table_game_log",
+  "position": { "x": 20, "y": 400, "z": 1000, "height": 300, "width": 1240, "tabOrder": 6000 },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": { "Column": { "Expression": { "SourceRef": { "Entity": "game_log" } }, "Property": "Date" } },
+              "queryRef": "game_log.Date",
+              "nativeQueryRef": "Date"
+            },
+            {
+              "field": { "Column": { "Expression": { "SourceRef": { "Entity": "game_log" } }, "Property": "Team" } },
+              "queryRef": "game_log.Team",
+              "nativeQueryRef": "Team"
+            },
+            {
+              "field": { "Column": { "Expression": { "SourceRef": { "Entity": "game_log" } }, "Property": "Matchup" } },
+              "queryRef": "game_log.Matchup",
+              "nativeQueryRef": "Matchup"
+            },
+            {
+              "field": { "Column": { "Expression": { "SourceRef": { "Entity": "game_log" } }, "Property": "W/L" } },
+              "queryRef": "game_log.W/L",
+              "nativeQueryRef": "W/L"
+            },
+            {
+              "field": { "Column": { "Expression": { "SourceRef": { "Entity": "game_log" } }, "Property": "Points" } },
+              "queryRef": "game_log.Points",
+              "nativeQueryRef": "Points"
+            },
+            {
+              "field": { "Column": { "Expression": { "SourceRef": { "Entity": "game_log" } }, "Property": "Rebounds" } },
+              "queryRef": "game_log.Rebounds",
+              "nativeQueryRef": "Rebounds"
+            },
+            {
+              "field": { "Column": { "Expression": { "SourceRef": { "Entity": "game_log" } }, "Property": "Assists" } },
+              "queryRef": "game_log.Assists",
+              "nativeQueryRef": "Assists"
+            },
+            {
+              "field": { "Column": { "Expression": { "SourceRef": { "Entity": "game_log" } }, "Property": "FG%" } },
+              "queryRef": "game_log.FG%",
+              "nativeQueryRef": "FG%",
+              "format": "0.0%"
+            },
+            {
+              "field": { "Column": { "Expression": { "SourceRef": { "Entity": "game_log" } }, "Property": "+/-" } },
+              "queryRef": "game_log.+/-",
+              "nativeQueryRef": "+/-"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": { "Column": { "Expression": { "SourceRef": { "Entity": "game_log" } }, "Property": "Date" } },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "grid": [{ "properties": { "textSize": { "expr": { "Literal": { "Value": "11D" } } }, "rowPadding": { "expr": { "Literal": { "Value": "4D" } } } } }]
+    },
+    "visualContainerObjects": {
+      "title": [{ "properties": { "show": { "expr": { "Literal": { "Value": "true" } } }, "text": { "expr": { "Literal": { "Value": "'Recent Game Results'" } } }, "fontSize": { "expr": { "Literal": { "Value": "12D" } } }, "bold": { "expr": { "Literal": { "Value": "true" } } } } }],
+      "stylePreset": [{ "properties": { "name": { "expr": { "Literal": { "Value": "'Minimal'" } } } } }],
+      "background": [{ "properties": { "show": { "expr": { "Literal": { "Value": "true" } } }, "color": { "solid": { "color": { "expr": { "Literal": { "Value": "'#F5F5F5'" } } } } }, "transparency": { "expr": { "Literal": { "Value": "0D" } } } } }]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.1.0/schema.json",
+  "themeCollection": {
+    "baseTheme": {
+      "name": "CY25SU12",
+      "reportVersionAtImport": {
+        "visual": "2.5.0",
+        "report": "3.1.0",
+        "page": "2.3.0"
+      },
+      "type": "SharedResources"
+    },
+    "customTheme": {
+      "name": "ESPN_Olympic_Clean6403896956896132.json",
+      "reportVersionAtImport": {
+        "visual": "2.5.0",
+        "report": "3.1.0",
+        "page": "2.3.0"
+      },
+      "type": "RegisteredResources"
+    }
+  },
+  "objects": {
+    "section": [
+      {
+        "properties": {
+          "verticalAlignment": {
+            "expr": {
+              "Literal": {
+                "Value": "'Top'"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "expanded": {
+            "expr": {
+              "Literal": {
+                "Value": "false"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "publicCustomVisuals": [
+    "htmlContent443BE3AD55E043BF878BED274D3A6865",
+    "simpleImageEBC4593F96F1425FB3D84C5BF02B5075",
+    "deneb7E15AEF80B9E4D4F8E12924291ECE89A"
+  ],
+  "resourcePackages": [
+    {
+      "name": "SharedResources",
+      "type": "SharedResources",
+      "items": [
+        {
+          "name": "CY25SU12",
+          "path": "BaseThemes/CY25SU12.json",
+          "type": "BaseTheme"
+        }
+      ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "Feature@2x_(1)017972223619712402.png",
+          "path": "Feature@2x_(1)017972223619712402.png",
+          "type": "Image"
+        },
+        {
+          "name": "fabric_16_color22120285643756954.png",
+          "path": "fabric_16_color22120285643756954.png",
+          "type": "Image"
+        },
+        {
+          "name": "ESPN_Olympic_Clean6403896956896132.json",
+          "path": "ESPN_Olympic_Clean6403896956896132.json",
+          "type": "CustomTheme"
+        },
+        {
+          "name": "filtro_(4)6736416564207738.png",
+          "path": "filtro_(4)6736416564207738.png",
+          "type": "Image"
+        },
+        {
+          "name": "filtro_(5)07310347360976144.png",
+          "path": "filtro_(5)07310347360976144.png",
+          "type": "Image"
+        },
+        {
+          "name": "Painel_de_Desempenho_Ol_mpico9741897999889267.png",
+          "path": "Painel_de_Desempenho_Ol_mpico9741897999889267.png",
+          "type": "Image"
+        },
+        {
+          "name": "pag15479114901451423.png",
+          "path": "pag15479114901451423.png",
+          "type": "Image"
+        },
+        {
+          "name": "sair-da-tela-cheia2782772931860956.png",
+          "path": "sair-da-tela-cheia2782772931860956.png",
+          "type": "Image"
+        },
+        {
+          "name": "sair-da-tela-cheia9165140282282573.png",
+          "path": "sair-da-tela-cheia9165140282282573.png",
+          "type": "Image"
+        },
+        {
+          "name": "Group_135498277158248515.png",
+          "path": "Group_135498277158248515.png",
+          "type": "Image"
+        },
+        {
+          "name": "tela_39551750643954454.png",
+          "path": "tela_39551750643954454.png",
+          "type": "Image"
+        },
+        {
+          "name": "Group_29156955458196476.png",
+          "path": "Group_29156955458196476.png",
+          "type": "Image"
+        },
+        {
+          "name": "Group_38309131609939844.png",
+          "path": "Group_38309131609939844.png",
+          "type": "Image"
+        },
+        {
+          "name": "botao_start7688052313306148.png",
+          "path": "botao_start7688052313306148.png",
+          "type": "Image"
+        },
+        {
+          "name": "botao_start297090145320924.png",
+          "path": "botao_start297090145320924.png",
+          "type": "Image"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "exportDataMode": "AllowSummarized",
+    "defaultDrillFilterOtherVisuals": true,
+    "allowChangeFilterTypes": true,
+    "useEnhancedTooltips": true,
+    "useDefaultAggregateDisplayName": true
+  }
+}

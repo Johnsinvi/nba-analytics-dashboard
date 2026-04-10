@@ -1,0 +1,172 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "71bbfcb3e4a198ec9004",
+  "position": {
+    "x": 294.95268312870741,
+    "y": 168.3829493723272,
+    "z": 6001,
+    "height": 504.01876120844253,
+    "width": 685.96275348323911,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "hosts"
+                    }
+                  },
+                  "Property": "Year"
+                }
+              },
+              "queryRef": "hosts.Game Year",
+              "nativeQueryRef": "Year",
+              "displayName": "Year"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "hosts"
+                    }
+                  },
+                  "Property": "Game Name"
+                }
+              },
+              "queryRef": "hosts.Game Name",
+              "nativeQueryRef": "Game",
+              "displayName": "Game"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "athletes"
+                        }
+                      },
+                      "Property": "Athlete"
+                    }
+                  },
+                  "Function": 2
+                }
+              },
+              "queryRef": "Count(athletes.Athlete)",
+              "nativeQueryRef": "Number of athletes",
+              "displayName": "Number of athletes",
+              "format": "#,0"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "hosts"
+                  }
+                },
+                "Property": "Year"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "grid": [
+        {
+          "properties": {
+            "textSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            },
+            "rowPadding": {
+              "expr": {
+                "Literal": {
+                  "Value": "5D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "87.55071172276874D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "hosts.Game Year"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "328.7485257970196D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "hosts.Game Name"
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "stylePreset": [
+        {
+          "properties": {
+            "name": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Minimal'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Table containing data on olympic games with columns Year, Game, and Number of Athletes'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

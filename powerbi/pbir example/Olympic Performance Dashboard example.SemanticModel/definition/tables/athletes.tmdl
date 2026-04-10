@@ -1,0 +1,144 @@
+table athletes
+	lineageTag: df337a61-faa7-4279-8c88-5c81296a8214
+
+	column 'Athlete URL'
+		dataType: string
+		lineageTag: 63b4b908-3972-44e1-9b08-48786e55e7e9
+		dataCategory: ImageUrl
+		summarizeBy: none
+		sourceColumn: Athlete URL
+
+		annotation SummarizationSetBy = Automatic
+
+	column Athlete
+		dataType: string
+		lineageTag: b3b8ef12-1e0c-40d8-ae69-8d790b47ed7d
+		summarizeBy: none
+		sourceColumn: Athlete
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Games (Text)'
+		dataType: string
+		lineageTag: 18d5465c-ac8c-4047-85e5-3dfa5a7cac33
+		summarizeBy: none
+		sourceColumn: Games (Text)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'First Game'
+		dataType: string
+		lineageTag: 1940229f-2242-49fd-a36e-aca0ea6e6eae
+		summarizeBy: none
+		sourceColumn: First Game
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Birth Year (Text)'
+		dataType: string
+		lineageTag: 82291f0f-b22e-436b-9bcd-66b2bfbaf54b
+		summarizeBy: none
+		sourceColumn: Birth Year (Text)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total Medals (Text)'
+		dataType: string
+		lineageTag: 7cc24319-f0d7-486f-86d0-87c93f0a0b52
+		summarizeBy: none
+		sourceColumn: Total Medals (Text)
+
+		annotation SummarizationSetBy = Automatic
+
+	column Bio
+		dataType: string
+		lineageTag: 3bbbb0da-cdab-412c-9dbe-85cb50b0c17e
+		summarizeBy: none
+		sourceColumn: Bio
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'First Game Year'
+		dataType: string
+		lineageTag: 23130a20-69c5-440f-b81e-9a9f5ae98a4f
+		summarizeBy: none
+		sourceColumn: First Game Year
+
+		annotation SummarizationSetBy = Automatic
+
+	partition athletes = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(
+				        Web.Contents(SourceURL & "olympic_athletes.csv"),
+				        [Delimiter=",", Columns=7, Encoding=65001, QuoteStyle=QuoteStyle.Csv]
+				    ),
+				
+				    Promote = Table.PromoteHeaders(
+				        Source,
+				        [PromoteAllScalars=true]
+				    ),
+				
+				    // Limpa textos
+				    Clean = Table.TransformColumns(
+				        Promote,
+				        {
+				            {
+				                "games_participations",
+				                each Text.Trim(Text.Clean(Text.From(_))),
+				                type text
+				            },
+				            {
+				                "athlete_year_birth",
+				                each Text.Trim(Text.Clean(Text.From(_))),
+				                type text
+				            },
+				            {
+				                "athlete_medals",
+				                each Text.Trim(Text.Clean(Text.From(_))),
+				                type text
+				            }
+				        }
+				    ),
+				
+				    Types = Table.TransformColumnTypes(
+				        Clean,
+				        {
+				            {"athlete_url", type text},
+				            {"athlete_full_name", type text},
+				            {"first_game", type text},
+				            {"bio", type text},
+				            {"games_participations", type text},
+				            {"athlete_year_birth", type text},
+				            {"athlete_medals", type text}
+				        }
+				    ),
+				
+				    Rename = Table.RenameColumns(
+				        Types,
+				        {
+				            {"athlete_full_name", "Athlete"},
+				            {"games_participations", "Games (Text)"},
+				            {"first_game", "First Game"},
+				            {"athlete_year_birth", "Birth Year (Text)"},
+				            {"athlete_medals", "Total Medals (Text)"},
+				            {"bio", "Bio"},
+				            {"athlete_url", "Athlete URL"}
+				        }
+				    ),
+				
+				    // Extrai ano do First Game
+				    FirstYear = Table.AddColumn(
+				        Rename,
+				        "First Game Year",
+				        each Text.End([First Game],4),
+				        type text
+				    )
+				in
+				    FirstYear
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

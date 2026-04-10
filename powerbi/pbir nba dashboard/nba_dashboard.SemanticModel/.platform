@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "nba_dashboard"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "eba7da21-3dd5-4a60-b21e-ed5dbbaedc41"
+  }
+}

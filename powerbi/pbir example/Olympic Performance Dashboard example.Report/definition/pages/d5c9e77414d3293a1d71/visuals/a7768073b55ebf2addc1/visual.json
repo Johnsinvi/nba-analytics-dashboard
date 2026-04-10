@@ -1,0 +1,61 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "a7768073b55ebf2addc1",
+  "position": {
+    "x": 0,
+    "y": 0,
+    "z": 0,
+    "height": 181.66666666666669,
+    "width": 723.33333333333337,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "htmlContent443BE3AD55E043BF878BED274D3A6865",
+    "query": {
+      "queryState": {
+        "content": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Olympic Athlete Cards ESPN GROUP v9"
+                }
+              },
+              "queryRef": "Medidas.Olympic Athlete News Feed ESPN",
+              "nativeQueryRef": "Olympic Athlete Cards ESPN GROUP v9"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "visualTooltip": [
+        {
+          "properties": {
+            "type": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Canvas'"
+                }
+              }
+            },
+            "section": {
+              "expr": {
+                "Literal": {
+                  "Value": "'fcb20e61d33f2a6bd652'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "parentGroupName": "cc0b2ce361bd810307d9"
+}

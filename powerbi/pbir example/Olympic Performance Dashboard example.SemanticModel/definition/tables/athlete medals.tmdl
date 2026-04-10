@@ -1,0 +1,189 @@
+table 'athlete medals'
+	lineageTag: b0ab6665-5416-481e-a492-e197434d58b5
+
+	column Discipline
+		dataType: string
+		lineageTag: 8a9e3366-5528-49f7-9c28-c288959a84eb
+		summarizeBy: none
+		sourceColumn: Discipline
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Game Slug'
+		dataType: string
+		lineageTag: 4465aa44-da13-4536-866e-c22db66479bd
+		summarizeBy: none
+		sourceColumn: Game Slug
+
+		annotation SummarizationSetBy = Automatic
+
+	column Event
+		dataType: string
+		lineageTag: 21e34aa9-63c5-4039-a327-6086b5e1b13c
+		summarizeBy: none
+		sourceColumn: Event
+
+		annotation SummarizationSetBy = Automatic
+
+	column Gender
+		dataType: string
+		lineageTag: 58ebc2fd-5914-488c-bff5-dc66a03f2b4f
+		summarizeBy: none
+		sourceColumn: Gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column Medal
+		dataType: string
+		lineageTag: a6202de2-3776-4033-85ad-92d611eafacb
+		summarizeBy: none
+		sourceColumn: Medal
+
+		annotation SummarizationSetBy = Automatic
+
+	column participant_type
+		dataType: string
+		lineageTag: 3a436a8a-e0ff-4cbc-a49d-dd9517fa4848
+		summarizeBy: none
+		sourceColumn: participant_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column participant_title
+		dataType: string
+		lineageTag: f28e893d-1a4a-47ec-b1cd-f93753845125
+		summarizeBy: none
+		sourceColumn: participant_title
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Athlete URL'
+		dataType: string
+		lineageTag: bc3634cd-ab00-46f6-a129-201cca7a5f5f
+		dataCategory: ImageUrl
+		summarizeBy: none
+		sourceColumn: Athlete URL
+
+		annotation SummarizationSetBy = Automatic
+
+	column Athlete
+		dataType: string
+		lineageTag: f18e06a7-3b7e-458a-8051-36e88765e255
+		summarizeBy: none
+		sourceColumn: Athlete
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		lineageTag: c7206fd4-4360-4755-aece-d0ccf6acd734
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column country_code
+		dataType: string
+		lineageTag: 6d5ebfe0-294f-4c3d-909d-9ed89636c5ed
+		summarizeBy: none
+		sourceColumn: country_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column NOC
+		dataType: string
+		lineageTag: 4f665970-c2a2-402b-9b41-d9fc9ac52a8f
+		summarizeBy: none
+		sourceColumn: NOC
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Medal Value'
+		dataType: int64
+		formatString: 0
+		lineageTag: 163e87e9-3124-44f7-9084-885f55ef2f06
+		summarizeBy: sum
+		sourceColumn: Medal Value
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'athlete medals' = m
+		mode: import
+		source = ```
+				let
+				    Source = Csv.Document(
+				        Web.Contents(SourceURL & "olympic_medals.csv"),
+				        [Delimiter=",", Columns=12, Encoding=65001, QuoteStyle=QuoteStyle.None]
+				    ),
+				
+				    Promote = Table.PromoteHeaders(
+				        Source,
+				        [PromoteAllScalars=true]
+				    ),
+				
+				    Types = Table.TransformColumnTypes(
+				        Promote,
+				        {
+				            {"discipline_title", type text},
+				            {"slug_game", type text},
+				            {"event_title", type text},
+				            {"event_gender", type text},
+				            {"medal_type", type text},
+				            {"participant_type", type text},
+				            {"participant_title", type text},
+				            {"athlete_url", type text},
+				            {"athlete_full_name", type text},
+				            {"country_name", type text},
+				            {"country_code", type text},
+				            {"country_3_letter_code", type text}
+				        }
+				    ),
+				
+				    Rename = Table.RenameColumns(
+				        Types,
+				        {
+				            {"discipline_title","Discipline"},
+				            {"slug_game","Game Slug"},
+				            {"event_title","Event"},
+				            {"event_gender","Gender"},
+				            {"medal_type","Medal"},
+				            {"athlete_url","Athlete URL"},
+				            {"athlete_full_name","Athlete"},
+				            {"country_name","Country"},
+				            {"country_3_letter_code","NOC"}
+				        }
+				    ),
+				
+				    // Limpa Medal (remove espaços / lixo)
+				    CleanMedal = Table.TransformColumns(
+				        Rename,
+				        {
+				            {
+				                "Medal",
+				                each Text.Upper(Text.Trim(Text.Clean(Text.From(_)))),
+				                type text
+				            }
+				        }
+				    ),
+				
+				    // Cria valor baseado no texto limpo
+				    MedalValue = Table.AddColumn(
+				        CleanMedal,
+				        "Medal Value",
+				        each 
+				            if [Medal] = "GOLD" then 3
+				            else if [Medal] = "SILVER" then 2
+				            else if [Medal] = "BRONZE" then 1
+				            else 0,
+				        Int64.Type
+				    ),
+				    #"Linhas Classificadas" = Table.Sort(MedalValue,{{"Medal Value", Order.Ascending}})
+				
+				in
+				    #"Linhas Classificadas"
+				```
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

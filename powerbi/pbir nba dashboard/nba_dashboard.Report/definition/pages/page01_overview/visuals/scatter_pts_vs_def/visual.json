@@ -1,0 +1,78 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "scatter_pts_vs_def",
+  "position": { "x": 640, "y": 210, "z": 1000, "height": 490, "width": 620, "tabOrder": 7000 },
+  "visual": {
+    "visualType": "scatterChart",
+    "query": {
+      "queryState": {
+        "Details": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": { "SourceRef": { "Entity": "team_standings" } },
+                  "Property": "Team Name"
+                }
+              },
+              "queryRef": "team_standings.Team Name",
+              "nativeQueryRef": "Team Name",
+              "active": true
+            }
+          ]
+        },
+        "X": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": { "SourceRef": { "Entity": "team_standings" } },
+                  "Property": "Pts/Game"
+                }
+              },
+              "queryRef": "team_standings.Pts/Game",
+              "nativeQueryRef": "Pts/Game"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": { "SourceRef": { "Entity": "team_standings" } },
+                  "Property": "Opp Pts/Game"
+                }
+              },
+              "queryRef": "team_standings.Opp Pts/Game",
+              "nativeQueryRef": "Opp Pts/Game"
+            }
+          ]
+        },
+        "Size": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": { "SourceRef": { "Entity": "team_standings" } },
+                  "Property": "Wins"
+                }
+              },
+              "queryRef": "team_standings.Wins",
+              "nativeQueryRef": "Wins"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "categoryAxis": [{ "properties": { "showAxisTitle": { "expr": { "Literal": { "Value": "true" } } } } }],
+      "valueAxis": [{ "properties": { "showAxisTitle": { "expr": { "Literal": { "Value": "true" } } } } }]
+    },
+    "visualContainerObjects": {
+      "title": [{ "properties": { "show": { "expr": { "Literal": { "Value": "true" } } }, "text": { "expr": { "Literal": { "Value": "'Offense vs Defense (Bubble = Wins)'" } } }, "fontSize": { "expr": { "Literal": { "Value": "12D" } } }, "bold": { "expr": { "Literal": { "Value": "true" } } } } }],
+      "background": [{ "properties": { "show": { "expr": { "Literal": { "Value": "true" } } }, "color": { "solid": { "color": { "expr": { "Literal": { "Value": "'#F5F5F5'" } } } } }, "transparency": { "expr": { "Literal": { "Value": "0D" } } } } }]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "slicer_team",
+  "position": { "x": 840, "y": 20, "z": 1000, "height": 60, "width": 200, "tabOrder": 5000 },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": { "SourceRef": { "Entity": "player_stats" } },
+                  "Property": "Team"
+                }
+              },
+              "queryRef": "player_stats.Team",
+              "nativeQueryRef": "Team"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "data": [{ "properties": { "mode": { "expr": { "Literal": { "Value": "'Dropdown'" } } } } }]
+    },
+    "visualContainerObjects": {
+      "title": [{ "properties": { "show": { "expr": { "Literal": { "Value": "true" } } }, "text": { "expr": { "Literal": { "Value": "'Filter by Team'" } } }, "fontSize": { "expr": { "Literal": { "Value": "11D" } } }, "bold": { "expr": { "Literal": { "Value": "true" } } } } }]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

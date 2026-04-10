@@ -1,0 +1,31 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "card_avg_pts",
+  "position": { "x": 220, "y": 20, "z": 1000, "height": 90, "width": 180, "tabOrder": 2000 },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": { "SourceRef": { "Entity": "Measures" } },
+                  "Property": "Avg Game Points"
+                }
+              },
+              "queryRef": "Measures.Avg Game Points",
+              "nativeQueryRef": "Avg Pts/Game"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [{ "properties": { "show": { "expr": { "Literal": { "Value": "true" } } }, "text": { "expr": { "Literal": { "Value": "'League Avg Pts/Game'" } } }, "fontSize": { "expr": { "Literal": { "Value": "11D" } } }, "bold": { "expr": { "Literal": { "Value": "true" } } } } }],
+      "background": [{ "properties": { "color": { "solid": { "color": { "expr": { "Literal": { "Value": "'#C9082A'" } } } } }, "show": { "expr": { "Literal": { "Value": "true" } } }, "transparency": { "expr": { "Literal": { "Value": "0D" } } } } }]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

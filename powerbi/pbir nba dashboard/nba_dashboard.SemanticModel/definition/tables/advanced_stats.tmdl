@@ -1,0 +1,150 @@
+table advanced_stats
+	lineageTag: a1b2c3d4-0004-0001-0001-000000000001
+
+	column player_id
+		dataType: int64
+		lineageTag: a1b2c3d4-0004-0002-0001-000000000001
+		summarizeBy: none
+		sourceColumn: player_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Player
+		dataType: string
+		lineageTag: a1b2c3d4-0004-0003-0001-000000000001
+		summarizeBy: none
+		sourceColumn: Player
+
+		annotation SummarizationSetBy = Automatic
+
+	column Team
+		dataType: string
+		lineageTag: a1b2c3d4-0004-0004-0001-000000000001
+		summarizeBy: none
+		sourceColumn: Team
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Games Played'
+		dataType: int64
+		lineageTag: a1b2c3d4-0004-0005-0001-000000000001
+		summarizeBy: average
+		sourceColumn: Games Played
+
+		annotation SummarizationSetBy = Automatic
+
+	column Minutes
+		dataType: double
+		lineageTag: a1b2c3d4-0004-0006-0001-000000000001
+		summarizeBy: average
+		sourceColumn: Minutes
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Off Rating'
+		dataType: double
+		lineageTag: a1b2c3d4-0004-0007-0001-000000000001
+		summarizeBy: average
+		sourceColumn: Off Rating
+		formatString: 0.0
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Def Rating'
+		dataType: double
+		lineageTag: a1b2c3d4-0004-0008-0001-000000000001
+		summarizeBy: average
+		sourceColumn: Def Rating
+		formatString: 0.0
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Net Rating'
+		dataType: double
+		lineageTag: a1b2c3d4-0004-0009-0001-000000000001
+		summarizeBy: average
+		sourceColumn: Net Rating
+		formatString: 0.0
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'USG%'
+		dataType: double
+		lineageTag: a1b2c3d4-0004-0010-0001-000000000001
+		summarizeBy: average
+		sourceColumn: USG%
+		formatString: 0.0%
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'TS%'
+		dataType: double
+		lineageTag: a1b2c3d4-0004-0011-0001-000000000001
+		summarizeBy: average
+		sourceColumn: TS%
+		formatString: 0.0%
+
+		annotation SummarizationSetBy = Automatic
+
+	column PIE
+		dataType: double
+		lineageTag: a1b2c3d4-0004-0012-0001-000000000001
+		summarizeBy: average
+		sourceColumn: PIE
+		formatString: 0.000
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'AST%'
+		dataType: double
+		lineageTag: a1b2c3d4-0004-0013-0001-000000000001
+		summarizeBy: average
+		sourceColumn: AST%
+		formatString: 0.0%
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'REB%'
+		dataType: double
+		lineageTag: a1b2c3d4-0004-0014-0001-000000000001
+		summarizeBy: average
+		sourceColumn: REB%
+		formatString: 0.0%
+
+		annotation SummarizationSetBy = Automatic
+
+	partition advanced_stats = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(
+				        File.Contents(__NBADataPath & "advanced_stats.csv"),
+				        [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]
+				    ),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    Types = Table.TransformColumnTypes(Promoted, {
+				        {"player_id", Int64.Type},
+				        {"Player", type text},
+				        {"Team", type text},
+				        {"Games Played", Int64.Type},
+				        {"Minutes", type number},
+				        {"Off Rating", type number},
+				        {"Def Rating", type number},
+				        {"Net Rating", type number},
+				        {"AST%", type number},
+				        {"AST/TO", type number},
+				        {"OREB%", type number},
+				        {"DREB%", type number},
+				        {"REB%", type number},
+				        {"TOV%", type number},
+				        {"USG%", type number},
+				        {"TS%", type number},
+				        {"Pace", type number},
+				        {"PIE", type number}
+				    })
+				in
+				    Types
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table

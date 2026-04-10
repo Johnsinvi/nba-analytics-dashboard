@@ -1,0 +1,158 @@
+table team_standings
+	lineageTag: a1b2c3d4-0002-0001-0001-000000000001
+
+	column teamid
+		dataType: int64
+		lineageTag: a1b2c3d4-0002-0002-0001-000000000001
+		summarizeBy: none
+		sourceColumn: teamid
+
+		annotation SummarizationSetBy = Automatic
+
+	column City
+		dataType: string
+		lineageTag: a1b2c3d4-0002-0003-0001-000000000001
+		summarizeBy: none
+		sourceColumn: City
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Team Name'
+		dataType: string
+		lineageTag: a1b2c3d4-0002-0004-0001-000000000001
+		summarizeBy: none
+		sourceColumn: Team Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Team
+		dataType: string
+		lineageTag: a1b2c3d4-0002-0005-0001-000000000001
+		summarizeBy: none
+		sourceColumn: Team
+
+		annotation SummarizationSetBy = Automatic
+
+	column Conference
+		dataType: string
+		lineageTag: a1b2c3d4-0002-0006-0001-000000000001
+		summarizeBy: none
+		sourceColumn: Conference
+
+		annotation SummarizationSetBy = Automatic
+
+	column Division
+		dataType: string
+		lineageTag: a1b2c3d4-0002-0007-0001-000000000001
+		summarizeBy: none
+		sourceColumn: Division
+
+		annotation SummarizationSetBy = Automatic
+
+	column Wins
+		dataType: int64
+		lineageTag: a1b2c3d4-0002-0008-0001-000000000001
+		summarizeBy: sum
+		sourceColumn: Wins
+
+		annotation SummarizationSetBy = Automatic
+
+	column Losses
+		dataType: int64
+		lineageTag: a1b2c3d4-0002-0009-0001-000000000001
+		summarizeBy: sum
+		sourceColumn: Losses
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Win%'
+		dataType: double
+		lineageTag: a1b2c3d4-0002-0010-0001-000000000001
+		summarizeBy: average
+		sourceColumn: Win%
+		formatString: 0.0%
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Home Record'
+		dataType: string
+		lineageTag: a1b2c3d4-0002-0011-0001-000000000001
+		summarizeBy: none
+		sourceColumn: Home Record
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Away Record'
+		dataType: string
+		lineageTag: a1b2c3d4-0002-0012-0001-000000000001
+		summarizeBy: none
+		sourceColumn: Away Record
+
+		annotation SummarizationSetBy = Automatic
+
+	column Streak
+		dataType: string
+		lineageTag: a1b2c3d4-0002-0013-0001-000000000001
+		summarizeBy: none
+		sourceColumn: Streak
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Last 10'
+		dataType: string
+		lineageTag: a1b2c3d4-0002-0014-0001-000000000001
+		summarizeBy: none
+		sourceColumn: Last 10
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Pts/Game'
+		dataType: double
+		lineageTag: a1b2c3d4-0002-0015-0001-000000000001
+		summarizeBy: average
+		sourceColumn: Pts/Game
+		formatString: 0.0
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Opp Pts/Game'
+		dataType: double
+		lineageTag: a1b2c3d4-0002-0016-0001-000000000001
+		summarizeBy: average
+		sourceColumn: Opp Pts/Game
+		formatString: 0.0
+
+		annotation SummarizationSetBy = Automatic
+
+	partition team_standings = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(
+				        File.Contents(__NBADataPath & "team_standings.csv"),
+				        [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]
+				    ),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    Types = Table.TransformColumnTypes(Promoted, {
+				        {"teamid", Int64.Type},
+				        {"City", type text},
+				        {"Team Name", type text},
+				        {"Team", type text},
+				        {"Conference", type text},
+				        {"Division", type text},
+				        {"Wins", Int64.Type},
+				        {"Losses", Int64.Type},
+				        {"Win%", type number},
+				        {"Home Record", type text},
+				        {"Away Record", type text},
+				        {"Streak", type text},
+				        {"Last 10", type text},
+				        {"Pts/Game", type number},
+				        {"Opp Pts/Game", type number}
+				    })
+				in
+				    Types
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table

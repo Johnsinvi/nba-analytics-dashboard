@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Olympic Performance Dashboard example"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "48988bc4-60e8-40d8-9401-f444a2274e5b"
+  }
+}

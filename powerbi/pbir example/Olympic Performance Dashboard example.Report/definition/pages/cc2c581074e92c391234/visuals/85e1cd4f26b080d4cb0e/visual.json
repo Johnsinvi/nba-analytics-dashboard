@@ -1,0 +1,53 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "85e1cd4f26b080d4cb0e",
+  "position": {
+    "x": 148.88888888888889,
+    "y": 218.88888888888889,
+    "z": 3000,
+    "height": 440,
+    "width": 252.22222222222223,
+    "tabOrder": 5000
+  },
+  "visual": {
+    "visualType": "htmlContent443BE3AD55E043BF878BED274D3A6865",
+    "query": {
+      "queryState": {
+        "content": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Discipline Story Cards HTML FINAL"
+                }
+              },
+              "queryRef": "Medidas.Discipline Story Cards HTML FINAL",
+              "nativeQueryRef": "Discipline Story Cards HTML FINAL"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

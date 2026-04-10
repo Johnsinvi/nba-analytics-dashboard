@@ -1,0 +1,92 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "table_player_stats",
+  "position": { "x": 620, "y": 130, "z": 1000, "height": 560, "width": 640, "tabOrder": 7000 },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": { "Column": { "Expression": { "SourceRef": { "Entity": "player_stats" } }, "Property": "Player" } },
+              "queryRef": "player_stats.Player",
+              "nativeQueryRef": "Player"
+            },
+            {
+              "field": { "Column": { "Expression": { "SourceRef": { "Entity": "player_stats" } }, "Property": "Team" } },
+              "queryRef": "player_stats.Team",
+              "nativeQueryRef": "Team"
+            },
+            {
+              "field": { "Column": { "Expression": { "SourceRef": { "Entity": "player_stats" } }, "Property": "Points" } },
+              "queryRef": "player_stats.Points",
+              "nativeQueryRef": "Points",
+              "format": "0.0"
+            },
+            {
+              "field": { "Column": { "Expression": { "SourceRef": { "Entity": "player_stats" } }, "Property": "Rebounds" } },
+              "queryRef": "player_stats.Rebounds",
+              "nativeQueryRef": "Rebounds",
+              "format": "0.0"
+            },
+            {
+              "field": { "Column": { "Expression": { "SourceRef": { "Entity": "player_stats" } }, "Property": "Assists" } },
+              "queryRef": "player_stats.Assists",
+              "nativeQueryRef": "Assists",
+              "format": "0.0"
+            },
+            {
+              "field": { "Column": { "Expression": { "SourceRef": { "Entity": "player_stats" } }, "Property": "Steals" } },
+              "queryRef": "player_stats.Steals",
+              "nativeQueryRef": "Steals",
+              "format": "0.0"
+            },
+            {
+              "field": { "Column": { "Expression": { "SourceRef": { "Entity": "player_stats" } }, "Property": "Blocks" } },
+              "queryRef": "player_stats.Blocks",
+              "nativeQueryRef": "Blocks",
+              "format": "0.0"
+            },
+            {
+              "field": { "Column": { "Expression": { "SourceRef": { "Entity": "player_stats" } }, "Property": "FG%" } },
+              "queryRef": "player_stats.FG%",
+              "nativeQueryRef": "FG%",
+              "format": "0.0%"
+            },
+            {
+              "field": { "Column": { "Expression": { "SourceRef": { "Entity": "player_stats" } }, "Property": "3PT%" } },
+              "queryRef": "player_stats.3PT%",
+              "nativeQueryRef": "3PT%",
+              "format": "0.0%"
+            },
+            {
+              "field": { "Column": { "Expression": { "SourceRef": { "Entity": "player_stats" } }, "Property": "+/-" } },
+              "queryRef": "player_stats.+/-",
+              "nativeQueryRef": "+/-",
+              "format": "+0.0;-0.0"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": { "Column": { "Expression": { "SourceRef": { "Entity": "player_stats" } }, "Property": "Points" } },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "grid": [{ "properties": { "textSize": { "expr": { "Literal": { "Value": "11D" } } }, "rowPadding": { "expr": { "Literal": { "Value": "4D" } } } } }]
+    },
+    "visualContainerObjects": {
+      "title": [{ "properties": { "show": { "expr": { "Literal": { "Value": "true" } } }, "text": { "expr": { "Literal": { "Value": "'Player Stats Table'" } } }, "fontSize": { "expr": { "Literal": { "Value": "12D" } } }, "bold": { "expr": { "Literal": { "Value": "true" } } } } }],
+      "stylePreset": [{ "properties": { "name": { "expr": { "Literal": { "Value": "'Minimal'" } } } } }],
+      "background": [{ "properties": { "show": { "expr": { "Literal": { "Value": "true" } } }, "color": { "solid": { "color": { "expr": { "Literal": { "Value": "'#F5F5F5'" } } } } }, "transparency": { "expr": { "Literal": { "Value": "0D" } } } } }]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

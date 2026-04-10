@@ -1,0 +1,168 @@
+table game_log
+	lineageTag: a1b2c3d4-0003-0001-0001-000000000001
+
+	column game_id
+		dataType: int64
+		lineageTag: a1b2c3d4-0003-0002-0001-000000000001
+		summarizeBy: none
+		sourceColumn: game_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Date
+		dataType: dateTime
+		lineageTag: a1b2c3d4-0003-0003-0001-000000000001
+		summarizeBy: none
+		sourceColumn: Date
+		formatString: Short Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column Team
+		dataType: string
+		lineageTag: a1b2c3d4-0003-0004-0001-000000000001
+		summarizeBy: none
+		sourceColumn: Team
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Team Name'
+		dataType: string
+		lineageTag: a1b2c3d4-0003-0005-0001-000000000001
+		summarizeBy: none
+		sourceColumn: Team Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Matchup
+		dataType: string
+		lineageTag: a1b2c3d4-0003-0006-0001-000000000001
+		summarizeBy: none
+		sourceColumn: Matchup
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'W/L'
+		dataType: string
+		lineageTag: a1b2c3d4-0003-0007-0001-000000000001
+		summarizeBy: none
+		sourceColumn: W/L
+
+		annotation SummarizationSetBy = Automatic
+
+	column Points
+		dataType: int64
+		lineageTag: a1b2c3d4-0003-0008-0001-000000000001
+		summarizeBy: average
+		sourceColumn: Points
+
+		annotation SummarizationSetBy = Automatic
+
+	column Rebounds
+		dataType: int64
+		lineageTag: a1b2c3d4-0003-0009-0001-000000000001
+		summarizeBy: average
+		sourceColumn: Rebounds
+
+		annotation SummarizationSetBy = Automatic
+
+	column Assists
+		dataType: int64
+		lineageTag: a1b2c3d4-0003-0010-0001-000000000001
+		summarizeBy: average
+		sourceColumn: Assists
+
+		annotation SummarizationSetBy = Automatic
+
+	column Steals
+		dataType: int64
+		lineageTag: a1b2c3d4-0003-0011-0001-000000000001
+		summarizeBy: average
+		sourceColumn: Steals
+
+		annotation SummarizationSetBy = Automatic
+
+	column Blocks
+		dataType: int64
+		lineageTag: a1b2c3d4-0003-0012-0001-000000000001
+		summarizeBy: average
+		sourceColumn: Blocks
+
+		annotation SummarizationSetBy = Automatic
+
+	column Turnovers
+		dataType: int64
+		lineageTag: a1b2c3d4-0003-0013-0001-000000000001
+		summarizeBy: average
+		sourceColumn: Turnovers
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'FG%'
+		dataType: double
+		lineageTag: a1b2c3d4-0003-0014-0001-000000000001
+		summarizeBy: average
+		sourceColumn: FG%
+		formatString: 0.0%
+
+		annotation SummarizationSetBy = Automatic
+
+	column '3PT%'
+		dataType: double
+		lineageTag: a1b2c3d4-0003-0015-0001-000000000001
+		summarizeBy: average
+		sourceColumn: 3PT%
+		formatString: 0.0%
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'FT%'
+		dataType: double
+		lineageTag: a1b2c3d4-0003-0016-0001-000000000001
+		summarizeBy: average
+		sourceColumn: FT%
+		formatString: 0.0%
+
+		annotation SummarizationSetBy = Automatic
+
+	column '+/-'
+		dataType: int64
+		lineageTag: a1b2c3d4-0003-0017-0001-000000000001
+		summarizeBy: average
+		sourceColumn: +/-
+
+		annotation SummarizationSetBy = Automatic
+
+	partition game_log = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(
+				        File.Contents(__NBADataPath & "game_log.csv"),
+				        [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]
+				    ),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    Types = Table.TransformColumnTypes(Promoted, {
+				        {"game_id", Int64.Type},
+				        {"Date", type date},
+				        {"Team", type text},
+				        {"Team Name", type text},
+				        {"Matchup", type text},
+				        {"W/L", type text},
+				        {"Points", Int64.Type},
+				        {"Rebounds", Int64.Type},
+				        {"Assists", Int64.Type},
+				        {"Steals", Int64.Type},
+				        {"Blocks", Int64.Type},
+				        {"Turnovers", Int64.Type},
+				        {"FG%", type number},
+				        {"3PT%", type number},
+				        {"FT%", type number},
+				        {"+/-", Int64.Type}
+				    })
+				in
+				    Types
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table

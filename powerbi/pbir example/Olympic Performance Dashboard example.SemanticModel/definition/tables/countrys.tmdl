@@ -1,0 +1,60 @@
+table countrys
+	lineageTag: 4304859e-5feb-4fd7-846a-fd9ce7369c2a
+
+	column country_code
+		dataType: string
+		lineageTag: 71b3c640-b095-4d7c-b3bd-3722301d1002
+		summarizeBy: none
+		sourceColumn: country_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Flag_URL
+		dataType: string
+		lineageTag: 37edb018-fec6-41d1-bb73-16f2c2ea01ea
+		dataCategory: ImageUrl
+		summarizeBy: none
+		sourceColumn: Flag_URL
+
+		annotation SummarizationSetBy = Automatic
+
+	partition countrys = m
+		mode: import
+		source =
+				let
+				    Fonte = #"athlete medals",
+				
+				    // Mantém só country_code
+				    ColunasSelecionadas =
+				        Table.SelectColumns(
+				            Fonte,
+				            {"country_code"}
+				        ),
+				
+				    // Remove duplicatas
+				    DuplicatasRemovidas =
+				        Table.Distinct(
+				            ColunasSelecionadas
+				        ),
+				
+				    // Cria URL da bandeira
+				    AddFlagURL =
+				        Table.AddColumn(
+				            DuplicatasRemovidas,
+				            "Flag_URL",
+				            each
+				                "https://cdn.gtranslate.net/flags/svg/countries/"
+				                & Text.Lower([country_code])
+				                & ".svg",
+				            type text
+				        ),
+				    #"Duplicatas Removidas" = Table.Distinct(AddFlagURL, {"country_code"}),
+				    #"Linhas Filtradas" = Table.SelectRows(#"Duplicatas Removidas", each ([country_code] <> ""))
+				
+				in
+				    #"Linhas Filtradas"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

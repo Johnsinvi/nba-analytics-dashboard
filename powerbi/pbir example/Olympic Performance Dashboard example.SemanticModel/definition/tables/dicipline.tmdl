@@ -1,0 +1,48 @@
+table dicipline
+	lineageTag: 029d0fab-a4cf-420c-953e-767390374b6c
+
+	column Discipline
+		dataType: string
+		lineageTag: ee4b30e3-d57e-4aa2-8069-1539f671a716
+		summarizeBy: none
+		sourceColumn: Discipline
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Discipline.1'
+		dataType: string
+		lineageTag: 9e26d854-d186-4568-b57e-1b97f193e460
+		summarizeBy: none
+		sourceColumn: Discipline.1
+
+		annotation SummarizationSetBy = Automatic
+
+	column photo
+		dataType: string
+		lineageTag: bf9de8ae-9d5d-45df-87c5-530a342a4bf7
+		dataCategory: ImageUrl
+		summarizeBy: none
+		sourceColumn: photo
+
+		annotation SummarizationSetBy = Automatic
+
+	column url
+		dataType: string
+		lineageTag: e5fbe5e4-c18b-4637-9f0a-5753279b135f
+		summarizeBy: none
+		sourceColumn: url
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dicipline = m
+		mode: import
+		source =
+				let
+				    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("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", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Discipline = _t, Discipline.1 = _t, photo = _t, url = _t])
+				in
+				    Fonte
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

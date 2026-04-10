@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "e758eb98a5b32dc091ec",
+  "position": {
+    "x": 0,
+    "y": 0,
+    "z": 500,
+    "height": 400,
+    "width": 330,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "htmlContent443BE3AD55E043BF878BED274D3A6865",
+    "query": {
+      "queryState": {
+        "content": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Athlete Tooltip Career v1"
+                }
+              },
+              "queryRef": "Medidas.Athlete Tooltip Career v1",
+              "nativeQueryRef": "Athlete Tooltip Career v1"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

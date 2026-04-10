@@ -1,0 +1,197 @@
+table hosts
+	lineageTag: aed61c10-20f6-4a36-9a14-75c3a69e15f4
+
+	column 'Game Slug'
+		dataType: string
+		isHidden
+		lineageTag: e5e021fa-a241-47d8-b838-14e9caef886d
+		summarizeBy: none
+		sourceColumn: Game Slug
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'End Date'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 7cccadf4-d89a-4d4d-969c-c61734a3dece
+		summarizeBy: none
+		sourceColumn: End Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Start Date'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 7dfb242f-b018-4041-bfa3-46446958c9cb
+		summarizeBy: none
+		sourceColumn: Start Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Location
+		dataType: string
+		lineageTag: 8be78454-d855-4bdd-91a0-8bcbec1824e0
+		summarizeBy: none
+		sourceColumn: Location
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Game Name'
+		dataType: string
+		lineageTag: 73ddfe86-1d2c-43ee-8723-a752cf6552c0
+		summarizeBy: none
+		sourceColumn: Game Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Season
+		dataType: string
+		lineageTag: 951c67a2-22c1-4435-bb65-ceee3d29f7c9
+		summarizeBy: none
+		sourceColumn: Season
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: c1404c33-b842-4f02-883e-459faa9e68c2
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Decade
+		dataType: int64
+		formatString: 0
+		lineageTag: 2f99e4e9-f9d0-4c2b-9a57-c6f60bed7203
+		summarizeBy: sum
+		sourceColumn: Decade
+
+		annotation SummarizationSetBy = Automatic
+
+	column Era
+		dataType: string
+		lineageTag: 7a3595b3-dce5-4f5a-9ab9-a3ed6a6df599
+		summarizeBy: none
+		sourceColumn: Era
+
+		annotation SummarizationSetBy = Automatic
+
+	partition hosts = m
+		mode: import
+		source = ```
+				let
+				    Source = Csv.Document(
+				        Web.Contents(SourceURL & "olympic_hosts.csv"),
+				        [Delimiter=",", Columns=7, Encoding=65001, QuoteStyle=QuoteStyle.None]
+				    ),
+				
+				    Promote = Table.PromoteHeaders(
+				        Source,
+				        [PromoteAllScalars=true]
+				    ),
+				
+				    // Limpa Year
+				    CleanYear = Table.TransformColumns(
+				        Promote,
+				        {
+				            {
+				                "game_year",
+				                each Text.Trim(Text.Clean(Text.From(_))),
+				                type text
+				            }
+				        }
+				    ),
+				
+				    // Converte Year
+				    SafeYear = Table.TransformColumns(
+				        CleanYear,
+				        {
+				            {
+				                "game_year",
+				                each try Number.FromText(_) otherwise null,
+				                Int64.Type
+				            }
+				        }
+				    ),
+				
+				    // Converte datas ISO corretamente
+				    SafeDates = Table.TransformColumns(
+				        SafeYear,
+				        {
+				            {
+				                "game_start_date",
+				                each try Date.From(DateTimeZone.FromText(_)) otherwise null,
+				                type date
+				            },
+				            {
+				                "game_end_date",
+				                each try Date.From(DateTimeZone.FromText(_)) otherwise null,
+				                type date
+				            }
+				        }
+				    ),
+				
+				    Types = Table.TransformColumnTypes(
+				        SafeDates,
+				        {
+				            {"game_slug", type text},
+				            {"game_location", type text},
+				            {"game_name", type text},
+				            {"game_season", type text}
+				        }
+				    ),
+				
+				    Rename = Table.RenameColumns(
+				        Types,
+				        {
+				            {"game_slug","Game Slug"},
+				            {"game_end_date","End Date"},
+				            {"game_start_date","Start Date"},
+				            {"game_location","Location"},
+				            {"game_name","Game Name"},
+				            {"game_season","Season"},
+				            {"game_year","Year"}
+				        }
+				    ),
+				
+				    SeasonClean = Table.TransformColumns(
+				        Rename,
+				        {{"Season", Text.Proper, type text}}
+				    ),
+				
+				    // Década
+				    Decade = Table.AddColumn(
+				        SeasonClean,
+				        "Decade",
+				        each if [Year] <> null then Number.RoundDown([Year]/10)*10 else null,
+				        Int64.Type
+				    ),
+				
+				    // Era
+				    Era = Table.AddColumn(
+				        Decade,
+				        "Era",
+				        each 
+				            if [Year] = null then null
+				            else if [Year] < 1936 then "Early Games"
+				            else if [Year] < 1960 then "Post-War Era"
+				            else if [Year] < 1990 then "Cold War Era"
+				            else "Modern Era",
+				        type text
+				    )
+				in
+				    Era
+				```
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

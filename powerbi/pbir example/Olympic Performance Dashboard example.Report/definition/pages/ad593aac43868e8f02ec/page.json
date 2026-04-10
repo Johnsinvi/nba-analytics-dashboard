@@ -1,0 +1,10 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.0.0/schema.json",
+  "name": "ad593aac43868e8f02ec",
+  "displayName": "Tolltip Athlete",
+  "displayOption": "ActualSize",
+  "height": 400,
+  "width": 330,
+  "visibility": "HiddenInViewMode",
+  "type": "Tooltip"
+}
