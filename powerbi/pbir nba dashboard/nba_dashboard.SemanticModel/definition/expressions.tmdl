@@ -1,5 +1,5 @@
-expression OneDriveFolderURL =
-		"https://graph.microsoft.com/v1.0/me/drive/root:/NBA Dashboard/data/" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+expression GitHubRawBaseURL =
+		"https://raw.githubusercontent.com/Johnsinvi/nba-analytics-dashboard/main/data/raw/" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
 	lineageTag: a1b2c3d4-9999-0001-0001-000000000001
 
 	annotation PBI_NavigationStepName = Navigation

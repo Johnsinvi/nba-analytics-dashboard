@@ -1,4 +1,4 @@
-name: Refresh NBA Data → OneDrive
+name: Refresh NBA Data
 
 on:
   schedule:
@@ -33,14 +33,16 @@ jobs:
           cd scripts
           python run_all.py
         env:
-          # nba_api uses HTTP; no keys needed but set a UA to avoid blocks
           PYTHONUNBUFFERED: "1"
 
-      # ── 5. Upload each CSV to OneDrive via Microsoft Graph API ────────────
-      - name: Upload CSVs to OneDrive
-        env:
-          TENANT_ID:     ${{ secrets.ONEDRIVE_TENANT_ID }}
-          CLIENT_ID:     ${{ secrets.ONEDRIVE_CLIENT_ID }}
-          CLIENT_SECRET: ${{ secrets.ONEDRIVE_CLIENT_SECRET }}
-          ONEDRIVE_FOLDER: ${{ secrets.ONEDRIVE_FOLDER_PATH }}
-        run: python .github/scripts/upload_to_onedrive.py
+      # ── 5. Commit updated CSVs back to the repo ───────────────────────────
+      - name: Commit updated CSVs
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/raw/*.csv
+          # Only commit if something actually changed
+          git diff --staged --quiet || git commit -m "chore: refresh NBA data [$(date -u '+%Y-%m-%d %H:%M UTC')]"
+
+      - name: Push changes
+        run: git push origin main

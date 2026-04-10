@@ -8,7 +8,7 @@ model Model
 
 annotation __PBI_TimeIntelligenceEnabled = 0
 
-annotation PBI_QueryOrder = ["OneDriveFolderURL","player_stats","team_standings","game_log","advanced_stats","Measures"]
+annotation PBI_QueryOrder = ["GitHubRawBaseURL","player_stats","team_standings","game_log","advanced_stats","Measures"]
 
 annotation PBI_ProTooling = ["DevMode"]
 
