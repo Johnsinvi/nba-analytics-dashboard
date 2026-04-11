@@ -1,0 +1,175 @@
+table player_stats
+	lineageTag: a1b2c3d4-0001-0001-0001-000000000001
+
+	column player_id
+		dataType: int64
+		lineageTag: a1b2c3d4-0001-0002-0001-000000000001
+		summarizeBy: none
+		sourceColumn: player_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Player
+		dataType: string
+		lineageTag: a1b2c3d4-0001-0003-0001-000000000001
+		summarizeBy: none
+		sourceColumn: Player
+
+		annotation SummarizationSetBy = Automatic
+
+	column Team
+		dataType: string
+		lineageTag: a1b2c3d4-0001-0004-0001-000000000001
+		summarizeBy: none
+		sourceColumn: Team
+
+		annotation SummarizationSetBy = Automatic
+
+	column Age
+		dataType: int64
+		lineageTag: a1b2c3d4-0001-0005-0001-000000000001
+		summarizeBy: average
+		sourceColumn: Age
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Games Played'
+		dataType: int64
+		lineageTag: a1b2c3d4-0001-0006-0001-000000000001
+		summarizeBy: average
+		sourceColumn: Games Played
+
+		annotation SummarizationSetBy = Automatic
+
+	column Minutes
+		dataType: double
+		lineageTag: a1b2c3d4-0001-0007-0001-000000000001
+		summarizeBy: average
+		sourceColumn: Minutes
+
+		annotation SummarizationSetBy = Automatic
+
+	column Points
+		dataType: double
+		lineageTag: a1b2c3d4-0001-0008-0001-000000000001
+		summarizeBy: average
+		sourceColumn: Points
+		formatString: 0.0
+
+		annotation SummarizationSetBy = Automatic
+
+	column Rebounds
+		dataType: double
+		lineageTag: a1b2c3d4-0001-0009-0001-000000000001
+		summarizeBy: average
+		sourceColumn: Rebounds
+		formatString: 0.0
+
+		annotation SummarizationSetBy = Automatic
+
+	column Assists
+		dataType: double
+		lineageTag: a1b2c3d4-0001-0010-0001-000000000001
+		summarizeBy: average
+		sourceColumn: Assists
+		formatString: 0.0
+
+		annotation SummarizationSetBy = Automatic
+
+	column Steals
+		dataType: double
+		lineageTag: a1b2c3d4-0001-0011-0001-000000000001
+		summarizeBy: average
+		sourceColumn: Steals
+		formatString: 0.0
+
+		annotation SummarizationSetBy = Automatic
+
+	column Blocks
+		dataType: double
+		lineageTag: a1b2c3d4-0001-0012-0001-000000000001
+		summarizeBy: average
+		sourceColumn: Blocks
+		formatString: 0.0
+
+		annotation SummarizationSetBy = Automatic
+
+	column Turnovers
+		dataType: double
+		lineageTag: a1b2c3d4-0001-0013-0001-000000000001
+		summarizeBy: average
+		sourceColumn: Turnovers
+		formatString: 0.0
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'FG%'
+		dataType: double
+		lineageTag: a1b2c3d4-0001-0014-0001-000000000001
+		summarizeBy: average
+		sourceColumn: FG%
+		formatString: 0.0%
+
+		annotation SummarizationSetBy = Automatic
+
+	column '3PT%'
+		dataType: double
+		lineageTag: a1b2c3d4-0001-0015-0001-000000000001
+		summarizeBy: average
+		sourceColumn: 3PT%
+		formatString: 0.0%
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'FT%'
+		dataType: double
+		lineageTag: a1b2c3d4-0001-0016-0001-000000000001
+		summarizeBy: average
+		sourceColumn: FT%
+		formatString: 0.0%
+
+		annotation SummarizationSetBy = Automatic
+
+	column '+/-'
+		dataType: double
+		lineageTag: a1b2c3d4-0001-0017-0001-000000000001
+		summarizeBy: average
+		sourceColumn: +/-
+		formatString: 0.0
+
+		annotation SummarizationSetBy = Automatic
+
+	partition player_stats = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(
+				        Web.Contents(GitHubRawBaseURL & "player_stats.csv"),
+				        [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]
+				    ),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    Types = Table.TransformColumnTypes(Promoted, {
+				        {"player_id", Int64.Type},
+				        {"Player", type text},
+				        {"Team", type text},
+				        {"Age", Int64.Type},
+				        {"Games Played", Int64.Type},
+				        {"Minutes", type number},
+				        {"Points", type number},
+				        {"Rebounds", type number},
+				        {"Assists", type number},
+				        {"Steals", type number},
+				        {"Blocks", type number},
+				        {"Turnovers", type number},
+				        {"FG%", type number},
+				        {"3PT%", type number},
+				        {"FT%", type number},
+				        {"+/-", type number}
+				    })
+				in
+				    Types
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

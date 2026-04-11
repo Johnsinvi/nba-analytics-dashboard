@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "nba dashboard v2"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "baf6afcb-250d-4d2f-842a-b16d5ec86df8"
+  }
+}

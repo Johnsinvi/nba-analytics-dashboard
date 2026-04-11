@@ -1,0 +1,8 @@
+relationship nba_player_stats_to_advanced
+	fromColumn: player_stats.player_id
+	toColumn: advanced_stats.player_id
+
+relationship nba_player_stats_to_team_standings
+	fromColumn: player_stats.Team
+	toColumn: team_standings.Team
+

@@ -1,0 +1,111 @@
+table _Measures
+	lineageTag: a1b2c3d4-0005-0001-0001-000000000001
+
+	measure 'Avg Points' =
+			AVERAGE(player_stats[Points])
+		lineageTag: a1b2c3d4-0005-0002-0001-000000000001
+		formatString: 0.0
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'Avg Rebounds' =
+			AVERAGE(player_stats[Rebounds])
+		lineageTag: a1b2c3d4-0005-0003-0001-000000000001
+		formatString: 0.0
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'Avg Assists' =
+			AVERAGE(player_stats[Assists])
+		lineageTag: a1b2c3d4-0005-0004-0001-000000000001
+		formatString: 0.0
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'League Avg FG%' =
+			AVERAGE(player_stats[FG%])
+		lineageTag: a1b2c3d4-0005-0005-0001-000000000001
+		formatString: 0.0%
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'League Avg 3PT%' =
+			AVERAGE(player_stats[3PT%])
+		lineageTag: a1b2c3d4-0005-0006-0001-000000000001
+		formatString: 0.0%
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'Total Players' =
+			COUNTROWS(player_stats)
+		lineageTag: a1b2c3d4-0005-0007-0001-000000000001
+		formatString: 0
+
+	measure 'Team Win Pct' =
+			DIVIDE(
+			    SUM(team_standings[Wins]),
+			    SUM(team_standings[Wins]) + SUM(team_standings[Losses])
+			)
+		lineageTag: a1b2c3d4-0005-0009-0001-000000000001
+		formatString: 0.0%
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'Pt Differential' =
+			AVERAGE(team_standings[Pts/Game]) - AVERAGE(team_standings[Opp Pts/Game])
+		lineageTag: a1b2c3d4-0005-0010-0001-000000000001
+		formatString: +0.0;-0.0;0.0
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'Games Played (Team)' =
+			SUMX(team_standings, team_standings[Wins] + team_standings[Losses])
+		lineageTag: a1b2c3d4-0005-0011-0001-000000000001
+		formatString: 0
+
+	measure 'Avg Net Rating' =
+			AVERAGE(advanced_stats[Net Rating])
+		lineageTag: a1b2c3d4-0005-0012-0001-000000000001
+		formatString: +0.0;-0.0;0.0
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'Avg TS%' =
+			AVERAGE(advanced_stats[TS%])
+		lineageTag: a1b2c3d4-0005-0013-0001-000000000001
+		formatString: 0.0%
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'Avg USG%' =
+			AVERAGE(advanced_stats[USG%])
+		lineageTag: a1b2c3d4-0005-0014-0001-000000000001
+		formatString: 0.0%
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'W/L Record' =
+			VAR wins = CALCULATE(COUNTROWS(game_log), game_log[W/L] = "W")
+			VAR losses = CALCULATE(COUNTROWS(game_log), game_log[W/L] = "L")
+			RETURN wins & "-" & losses
+		lineageTag: a1b2c3d4-0005-0015-0001-000000000001
+
+	measure 'Win Rate (Games)' =
+			DIVIDE(
+			    CALCULATE(COUNTROWS(game_log), game_log[W/L] = "W"),
+			    COUNTROWS(game_log)
+			)
+		lineageTag: a1b2c3d4-0005-0016-0001-000000000001
+		formatString: 0.0%
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'Avg Game Points' =
+			AVERAGE(game_log[Points])
+		lineageTag: a1b2c3d4-0005-0017-0001-000000000001
+		formatString: 0.0
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	annotation PBI_ResultType = Table
+
