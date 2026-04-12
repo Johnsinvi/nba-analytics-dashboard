@@ -8,7 +8,7 @@ import time
 import pandas as pd
 from nba_api.stats.endpoints import leaguedashplayerstats
 
-SEASON = "2024-25"
+SEASON = "2025-26"
 OUTPUT_PATH = "../data/raw/advanced_stats.csv"
 
 
@@ -17,8 +17,8 @@ def fetch_advanced_stats(season: str = SEASON) -> pd.DataFrame:
 
     stats = leaguedashplayerstats.LeagueDashPlayerStats(
         season=season,
-        measure_type_simple="Advanced",
-        per_mode_simple="PerGame",
+        measure_type_detailed_defense="Advanced",
+        per_mode_detailed="PerGame",
         timeout=60,
     )
     time.sleep(1)

@@ -40,6 +40,6 @@ def main(season: str):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Refresh NBA data CSVs")
-    parser.add_argument("--season", default="2024-25", help="NBA season (e.g. 2024-25)")
+    parser.add_argument("--season", default="2025-26", help="NBA season (e.g. 2025-26)")
     args = parser.parse_args()
     main(args.season)

@@ -8,7 +8,7 @@ import time
 import pandas as pd
 from nba_api.stats.endpoints import leaguegamelog
 
-SEASON = "2024-25"
+SEASON = "2025-26"
 OUTPUT_PATH = "../data/raw/game_log.csv"
 
 

@@ -9,7 +9,7 @@ import pandas as pd
 from nba_api.stats.endpoints import leaguedashplayerstats
 from nba_api.stats.static import players
 
-SEASON = "2024-25"
+SEASON = "2025-26"
 OUTPUT_PATH = "../data/raw/player_stats.csv"
 
 
@@ -18,7 +18,7 @@ def fetch_player_stats(season: str = SEASON) -> pd.DataFrame:
 
     stats = leaguedashplayerstats.LeagueDashPlayerStats(
         season=season,
-        per_mode_simple="PerGame",
+        per_mode_detailed="PerGame",
         timeout=60,
     )
     time.sleep(1)  # respect NBA API rate limit
