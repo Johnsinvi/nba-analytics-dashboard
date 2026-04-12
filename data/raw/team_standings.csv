@@ -1,31 +1,31 @@
-teamid,City,Team Name,Team,Conference,Division,Wins,Losses,Win%,Home Record,Away Record,Streak,Last 10,Pts/Game,Opp Pts/Game
-1610612738,Boston,Celtics,BOS,East,Atlantic,64,18,0.780,33-8,31-10,W3,8-2,120.6,109.2
-1610612737,Atlanta,Hawks,ATL,East,Southeast,36,46,0.439,20-21,16-25,L2,4-6,118.3,120.1
-1610612751,Brooklyn,Nets,BKN,East,Atlantic,32,50,0.390,18-23,14-27,L4,3-7,108.7,113.2
-1610612766,Charlotte,Hornets,CHA,East,Southeast,21,61,0.256,12-29,9-32,L3,2-8,106.4,115.8
-1610612741,Chicago,Bulls,CHI,East,Central,39,43,0.476,22-19,17-24,W1,5-5,113.2,114.8
-1610612739,Cleveland,Cavaliers,CLE,East,Central,64,18,0.780,34-7,30-11,W5,9-1,118.6,109.4
-1610612742,Dallas,Mavericks,DAL,West,Southwest,50,32,0.610,28-13,22-19,W2,7-3,120.5,115.2
-1610612743,Denver,Nuggets,DEN,West,Northwest,57,25,0.695,31-10,26-15,W4,8-2,115.0,110.1
-1610612765,Detroit,Pistons,DET,East,Central,28,54,0.341,16-25,12-29,L1,4-6,108.1,114.6
-1610612744,Golden State,Warriors,GSW,West,Pacific,46,36,0.561,26-15,20-21,L2,5-5,118.4,116.9
-1610612745,Houston,Rockets,HOU,West,Southwest,41,41,0.500,22-19,19-22,W2,5-5,112.3,113.7
-1610612754,Indiana,Pacers,IND,East,Central,47,35,0.573,25-16,22-19,W3,6-4,123.3,121.5
-1610612746,LA,Clippers,LAC,West,Pacific,51,31,0.622,29-12,22-19,L1,6-4,116.7,113.1
-1610612747,Los Angeles,Lakers,LAL,West,Pacific,47,35,0.573,26-15,21-20,W1,6-4,118.0,116.8
-1610612763,Memphis,Grizzlies,MEM,West,Southwest,27,55,0.329,15-26,12-29,L5,2-8,113.4,119.6
-1610612748,Miami,Heat,MIA,East,Southeast,46,36,0.561,26-15,20-21,L2,5-5,111.8,110.1
-1610612749,Milwaukee,Bucks,MIL,East,Central,49,33,0.598,27-14,22-19,W2,7-3,119.2,116.3
-1610612750,Minnesota,Timberwolves,MIN,West,Northwest,56,26,0.683,30-11,26-15,W3,7-3,113.7,107.2
-1610612740,New Orleans,Pelicans,NOP,West,Southwest,49,33,0.598,27-14,22-19,W1,6-4,115.8,112.6
-1610612752,New York,Knicks,NYK,East,Atlantic,50,32,0.610,28-13,22-19,L1,6-4,115.5,112.3
-1610612760,Oklahoma City,Thunder,OKC,West,Northwest,57,25,0.695,31-10,26-15,W6,9-1,120.3,110.5
-1610612753,Orlando,Magic,ORL,East,Southeast,47,35,0.573,26-15,21-20,W2,6-4,111.2,108.6
-1610612755,Philadelphia,76ers,PHI,East,Atlantic,47,35,0.573,26-15,21-20,L3,5-5,118.1,115.8
-1610612756,Phoenix,Suns,PHX,West,Pacific,49,33,0.598,27-14,22-19,W1,6-4,117.2,114.0
-1610612757,Portland,Trail Blazers,POR,West,Northwest,21,61,0.256,12-29,9-32,L6,1-9,107.9,118.4
-1610612758,Sacramento,Kings,SAC,West,Pacific,46,36,0.561,25-16,21-20,W1,5-5,120.3,119.5
-1610612759,San Antonio,Spurs,SAS,West,Southwest,22,60,0.268,13-28,9-32,W1,3-7,110.5,119.3
-1610612761,Toronto,Raptors,TOR,East,Atlantic,25,57,0.305,15-26,10-31,L3,3-7,111.0,118.6
-1610612762,Utah,Jazz,UTA,West,Northwest,31,51,0.378,18-23,13-28,L2,3-7,113.9,120.7
-1610612764,Washington,Wizards,WAS,East,Southeast,15,67,0.183,9-32,6-35,L7,1-9,107.6,123.4
+team_id,Team,Team Name,Conference,Seed,Wins,Losses,Win%,Record,Streak,Home Record,Away Record,Last 10,Pts/Game,Opp Pts/Game,Point Diff
+5,CLE,Cleveland Cavaliers,Eastern Conference,1,64,18,.780,64-18,L1,34-7,30-11,6-4,121.9,112.4,+9.5
+2,BOS,Boston Celtics,Eastern Conference,2,61,21,.744,61-21,W2,28-13,33-8,8-2,116.3,107.2,+9.1
+14,MIA,Miami Heat,Eastern Conference,8,37,45,.451,37-45,L1,19-22,17-23,6-4,110.6,110.0,+0.6
+19,ORL,Orlando Magic,Eastern Conference,7,41,41,.500,41-41,L1,22-19,19-22,7-3,105.4,105.5,-0.1
+8,DET,Detroit Pistons,Eastern Conference,6,44,38,.537,44-38,L2,22-19,22-19,4-6,115.5,113.6,+1.9
+15,MIL,Milwaukee Bucks,Eastern Conference,5,48,34,.585,48-34,W8,27-14,20-20,8-2,115.5,113.0,+2.5
+11,IND,Indiana Pacers,Eastern Conference,4,50,32,.610,50-32,W1,29-11,20-20,8-2,117.4,115.1,+2.3
+18,NY,New York Knicks,Eastern Conference,3,51,31,.622,51-31,W1,27-14,24-17,6-4,115.8,111.7,+4.1
+4,CHI,Chicago Bulls,Eastern Conference,10,39,43,.476,39-43,W3,18-23,21-20,7-3,117.8,119.4,-1.6
+1,ATL,Atlanta Hawks,Eastern Conference,9,40,42,.488,40-42,W3,21-19,19-22,5-5,118.2,119.3,-1.1
+27,WSH,Washington Wizards,Eastern Conference,15,18,64,.220,18-64,W1,8-32,10-31,2-8,108.0,120.4,-12.4
+30,CHA,Charlotte Hornets,Eastern Conference,14,19,63,.232,19-63,L7,12-29,7-34,1-9,105.1,114.2,-9.1
+20,PHI,Philadelphia 76ers,Eastern Conference,13,24,58,.293,24-58,L2,12-29,12-29,1-9,109.6,115.8,-6.2
+17,BKN,Brooklyn Nets,Eastern Conference,12,26,56,.317,26-56,L3,12-29,14-27,3-7,105.1,112.2,-7.1
+28,TOR,Toronto Raptors,Eastern Conference,11,30,52,.366,30-52,L2,18-23,12-29,5-5,110.9,115.2,-4.3
+25,OKC,Oklahoma City Thunder,Western Conference,1,68,14,.829,68-14,W4,35-6,32-8,8-2,120.5,107.6,+12.9
+13,LAL,Los Angeles Lakers,Western Conference,3,50,32,.610,50-32,L1,31-10,19-22,6-4,113.4,112.2,+1.2
+10,HOU,Houston Rockets,Western Conference,2,52,30,.634,52-30,L3,29-12,23-17,6-4,114.3,109.8,+4.5
+9,GS,Golden State Warriors,Western Conference,7,48,34,.585,48-34,L1,24-17,24-17,7-3,113.8,110.5,+3.3
+29,MEM,Memphis Grizzlies,Western Conference,8,48,34,.585,48-34,W1,26-15,22-19,4-6,121.7,116.9,+4.8
+16,MIN,Minnesota Timberwolves,Western Conference,6,49,33,.598,49-33,W3,25-16,24-17,8-2,114.3,109.3,+5.0
+7,DEN,Denver Nuggets,Western Conference,4,50,32,.610,50-32,W3,26-15,24-17,5-5,120.8,116.9,+3.9
+12,LAC,LA Clippers,Western Conference,5,50,32,.610,50-32,W8,30-11,20-21,9-1,112.9,108.2,+4.7
+6,DAL,Dallas Mavericks,Western Conference,10,39,43,.476,39-43,L1,22-18,17-25,4-6,114.2,115.4,-1.2
+23,SAC,Sacramento Kings,Western Conference,9,40,42,.488,40-42,W1,20-21,20-21,5-5,115.7,115.3,+0.4
+26,UTAH,Utah Jazz,Western Conference,15,17,65,.207,17-65,L2,10-31,7-34,1-9,111.9,121.2,-9.3
+3,NO,New Orleans Pelicans,Western Conference,14,21,61,.256,21-61,L7,14-27,7-34,2-8,109.8,119.3,-9.5
+24,SA,San Antonio Spurs,Western Conference,13,34,48,.415,34-48,W1,20-20,13-27,3-7,113.9,116.7,-2.8
+21,PHX,Phoenix Suns,Western Conference,11,36,46,.439,36-46,L1,24-17,12-29,1-9,113.6,116.6,-3.0
+22,POR,Portland Trail Blazers,Western Conference,12,36,46,.439,36-46,W1,22-19,14-27,4-6,110.9,113.9,-3.0
