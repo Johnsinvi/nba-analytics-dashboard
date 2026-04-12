@@ -1,65 +1,62 @@
 """
 fetch_team_standings.py
-Pulls current season team standings from the NBA Stats API.
+Pulls current season team standings from the ESPN public standings API.
 Outputs: data/raw/team_standings.csv
 """
 
-import time
+import requests
 import pandas as pd
-from nba_api.stats.endpoints import leaguestandingsv3
 
-SEASON = "2025-26"
+SEASON = 2025
 OUTPUT_PATH = "../data/raw/team_standings.csv"
-
-HEADERS = {
-    "Host": "stats.nba.com",
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-    "Accept": "application/json, text/plain, */*",
-    "Accept-Language": "en-US,en;q=0.9",
-    "Accept-Encoding": "gzip, deflate, br",
-    "x-nba-stats-origin": "stats",
-    "x-nba-stats-token": "true",
-    "Referer": "https://www.nba.com/",
-    "Connection": "keep-alive",
-}
+STANDINGS_URL = "https://site.web.api.espn.com/apis/v2/sports/basketball/nba/standings?season={season}&type=0"
 
 
-def fetch_team_standings(season: str = SEASON) -> pd.DataFrame:
-    print(f"Fetching team standings for {season}...")
+def fetch_team_standings(season: int = SEASON) -> pd.DataFrame:
+    print(f"Fetching team standings for {season}-{str(season+1)[-2:]}...")
 
-    standings = leaguestandingsv3.LeagueStandingsV3(
-        season=season,
-        timeout=60,
-        headers=HEADERS,
-    )
-    time.sleep(1)
+    resp = requests.get(STANDINGS_URL.format(season=season), timeout=30)
+    resp.raise_for_status()
+    data = resp.json()
 
-    df = standings.get_data_frames()[0]
-    df.columns = [c.lower() for c in df.columns]
+    rows = []
+    for conference in data.get("children", []):
+        conf_name = conference.get("name", "")
+        for entry in conference.get("standings", {}).get("entries", []):
+            team = entry.get("team", {})
+            row = {
+                "team_id": team.get("id"),
+                "Team": team.get("abbreviation", ""),
+                "Team Name": team.get("displayName", ""),
+                "Conference": conf_name,
+            }
+            for stat in entry.get("stats", []):
+                row[stat["name"]] = stat.get("displayValue", stat.get("value"))
+            rows.append(row)
 
-    keep = [
-        "teamid", "teamcity", "teamname", "teamabbreviation", "conference",
-        "division", "wins", "losses", "winpct", "homerecord", "roadrecord",
-        "streak", "l10", "pointspg", "oppointspg",
-    ]
-    df = df[[c for c in keep if c in df.columns]]
+    df = pd.DataFrame(rows)
 
-    df.rename(columns={
-        "teamcity": "City",
-        "teamname": "Team Name",
-        "teamabbreviation": "Team",
-        "conference": "Conference",
-        "division": "Division",
+    rename = {
         "wins": "Wins",
         "losses": "Losses",
-        "winpct": "Win%",
-        "homerecord": "Home Record",
-        "roadrecord": "Away Record",
+        "winPercent": "Win%",
         "streak": "Streak",
-        "l10": "Last 10",
-        "pointspg": "Pts/Game",
-        "oppointspg": "Opp Pts/Game",
-    }, inplace=True)
+        "overall": "Record",
+        "Home": "Home Record",
+        "Road": "Away Record",
+        "Last Ten Games": "Last 10",
+        "avgPointsFor": "Pts/Game",
+        "avgPointsAgainst": "Opp Pts/Game",
+        "differential": "Point Diff",
+        "playoffSeed": "Seed",
+    }
+    df = df.rename(columns={k: v for k, v in rename.items() if k in df.columns})
+
+    keep = ["team_id", "Team", "Team Name", "Conference", "Seed",
+            "Wins", "Losses", "Win%", "Record", "Streak",
+            "Home Record", "Away Record", "Last 10",
+            "Pts/Game", "Opp Pts/Game", "Point Diff"]
+    df = df[[c for c in keep if c in df.columns]]
 
     return df
 

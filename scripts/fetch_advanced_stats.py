@@ -1,73 +1,93 @@
 """
 fetch_advanced_stats.py
-Pulls advanced player metrics (PER, TS%, USG%, etc.) for the current season.
+Pulls advanced player metrics (PER, ratings, usage) from the ESPN sports-core API.
 Outputs: data/raw/advanced_stats.csv
 """
 
 import time
+import requests
 import pandas as pd
-from nba_api.stats.endpoints import leaguedashplayerstats
 
-SEASON = "2025-26"
+SEASON = 2025
 OUTPUT_PATH = "../data/raw/advanced_stats.csv"
-
-HEADERS = {
-    "Host": "stats.nba.com",
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-    "Accept": "application/json, text/plain, */*",
-    "Accept-Language": "en-US,en;q=0.9",
-    "Accept-Encoding": "gzip, deflate, br",
-    "x-nba-stats-origin": "stats",
-    "x-nba-stats-token": "true",
-    "Referer": "https://www.nba.com/",
-    "Connection": "keep-alive",
-}
+LEADERS_URL = "https://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/{season}/types/2/leaders?limit=100"
+STATS_URL = "https://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/{season}/types/2/athletes/{athlete_id}/statistics/0"
+ATHLETE_URL = "https://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/athletes/{athlete_id}?lang=en&region=us"
 
 
-def fetch_advanced_stats(season: str = SEASON) -> pd.DataFrame:
-    print(f"Fetching advanced stats for {season}...")
+def _get(url, retries=3):
+    for attempt in range(retries):
+        try:
+            resp = requests.get(url, timeout=20)
+            resp.raise_for_status()
+            return resp.json()
+        except Exception:
+            if attempt < retries - 1:
+                time.sleep(2)
+    return None
 
-    stats = leaguedashplayerstats.LeagueDashPlayerStats(
-        season=season,
-        measure_type_detailed_defense="Advanced",
-        per_mode_detailed="PerGame",
-        timeout=60,
-        headers=HEADERS,
-    )
-    time.sleep(1)
 
-    df = stats.get_data_frames()[0]
-    df.columns = [c.lower() for c in df.columns]
+def fetch_advanced_stats(season: int = SEASON) -> pd.DataFrame:
+    print(f"Fetching advanced stats for {season}-{str(season+1)[-2:]}...")
 
-    keep = [
-        "player_id", "player_name", "team_abbreviation",
-        "gp", "min",
-        "e_off_rating", "e_def_rating", "e_net_rating",
-        "ast_pct", "ast_to", "oreb_pct", "dreb_pct", "reb_pct",
-        "tm_tov_pct", "usg_pct", "ts_pct", "pace",
-        "pie",
-    ]
+    leaders_data = _get(LEADERS_URL.format(season=season))
+    if not leaders_data:
+        return pd.DataFrame()
+
+    athlete_ids = set()
+    for cat in leaders_data.get("categories", []):
+        for leader in cat.get("leaders", []):
+            ref = leader.get("athlete", {}).get("$ref", "")
+            if ref:
+                aid = ref.split("athletes/")[-1].split("?")[0]
+                athlete_ids.add(aid)
+
+    print(f"  Found {len(athlete_ids)} players, fetching advanced stats...")
+
+    rows = []
+    for i, aid in enumerate(sorted(athlete_ids)):
+        data = _get(STATS_URL.format(season=season, athlete_id=aid))
+        if not data:
+            continue
+
+        athlete_info = _get(ATHLETE_URL.format(athlete_id=aid))
+        name = athlete_info.get("displayName", f"Athlete {aid}") if athlete_info else f"Athlete {aid}"
+
+        row = {"player_id": aid, "Player": name}
+
+        for cat in data.get("splits", {}).get("categories", []):
+            for stat in cat.get("stats", []):
+                row[stat["name"]] = stat.get("value")
+
+        rows.append(row)
+
+        if (i + 1) % 50 == 0:
+            print(f"  {i+1}/{len(athlete_ids)} done...")
+            time.sleep(1)
+        else:
+            time.sleep(0.15)
+
+    df = pd.DataFrame(rows)
+
+    rename = {
+        "PER": "PER",
+        "NBARating": "NBA Rating",
+        "offReboundRate": "OREB%",
+        "defReboundRate": "DREB%",
+        "reboundRate": "REB%",
+        "assistTurnoverRatio": "AST/TO",
+        "avgPoints": "Points",
+        "avgAssists": "Assists",
+        "avgRebounds": "Rebounds",
+        "gamesPlayed": "Games Played",
+        "avgMinutes": "Minutes",
+    }
+    df = df.rename(columns={k: v for k, v in rename.items() if k in df.columns})
+
+    keep = ["player_id", "Player", "Games Played", "Minutes",
+            "PER", "NBA Rating", "OREB%", "DREB%", "REB%", "AST/TO",
+            "Points", "Assists", "Rebounds"]
     df = df[[c for c in keep if c in df.columns]]
-
-    df.rename(columns={
-        "player_name": "Player",
-        "team_abbreviation": "Team",
-        "gp": "Games Played",
-        "min": "Minutes",
-        "e_off_rating": "Off Rating",
-        "e_def_rating": "Def Rating",
-        "e_net_rating": "Net Rating",
-        "ast_pct": "AST%",
-        "ast_to": "AST/TO",
-        "oreb_pct": "OREB%",
-        "dreb_pct": "DREB%",
-        "reb_pct": "REB%",
-        "tm_tov_pct": "TOV%",
-        "usg_pct": "USG%",
-        "ts_pct": "TS%",
-        "pace": "Pace",
-        "pie": "PIE",
-    }, inplace=True)
 
     return df
 

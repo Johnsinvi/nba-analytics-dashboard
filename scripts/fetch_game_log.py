@@ -1,70 +1,48 @@
 """
 fetch_game_log.py
-Pulls recent game-by-game results for all teams this season.
+Pulls completed game results for the current season from the NBA CDN schedule JSON.
 Outputs: data/raw/game_log.csv
 """
 
-import time
+import requests
 import pandas as pd
-from nba_api.stats.endpoints import leaguegamelog
 
-SEASON = "2025-26"
 OUTPUT_PATH = "../data/raw/game_log.csv"
-
-HEADERS = {
-    "Host": "stats.nba.com",
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-    "Accept": "application/json, text/plain, */*",
-    "Accept-Language": "en-US,en;q=0.9",
-    "Accept-Encoding": "gzip, deflate, br",
-    "x-nba-stats-origin": "stats",
-    "x-nba-stats-token": "true",
-    "Referer": "https://www.nba.com/",
-    "Connection": "keep-alive",
-}
+SCHEDULE_URL = "https://cdn.nba.com/static/json/staticData/scheduleLeagueV2_1.json"
 
 
-def fetch_game_log(season: str = SEASON) -> pd.DataFrame:
-    print(f"Fetching game log for {season}...")
+def fetch_game_log(season: int = None) -> pd.DataFrame:
+    print("Fetching game log from NBA CDN...")
 
-    gamelog = leaguegamelog.LeagueGameLog(
-        season=season,
-        player_or_team_abbreviation="T",  # Team level
-        timeout=60,
-        headers=HEADERS,
-    )
-    time.sleep(1)
+    resp = requests.get(SCHEDULE_URL, timeout=30)
+    resp.raise_for_status()
+    data = resp.json()
 
-    df = gamelog.get_data_frames()[0]
-    df.columns = [c.lower() for c in df.columns]
+    game_dates = data["leagueSchedule"]["gameDates"]
 
-    keep = [
-        "game_id", "game_date", "team_abbreviation", "team_name",
-        "matchup", "wl", "pts", "reb", "ast", "stl", "blk",
-        "tov", "fg_pct", "fg3_pct", "ft_pct", "plus_minus",
-    ]
-    df = df[[c for c in keep if c in df.columns]]
+    rows = []
+    for gd in game_dates:
+        for g in gd["games"]:
+            if g.get("gameStatus") != 3:  # 3 = Final
+                continue
+            home = g["homeTeam"]
+            away = g["awayTeam"]
+            rows.append({
+                "game_id": g["gameId"],
+                "Date": g["gameDateEst"][:10],
+                "Home Team": home.get("teamTricode", ""),
+                "Home Team Name": home.get("teamName", ""),
+                "Home Score": home.get("score"),
+                "Away Team": away.get("teamTricode", ""),
+                "Away Team Name": away.get("teamName", ""),
+                "Away Score": away.get("score"),
+            })
 
-    df.rename(columns={
-        "game_date": "Date",
-        "team_abbreviation": "Team",
-        "team_name": "Team Name",
-        "matchup": "Matchup",
-        "wl": "W/L",
-        "pts": "Points",
-        "reb": "Rebounds",
-        "ast": "Assists",
-        "stl": "Steals",
-        "blk": "Blocks",
-        "tov": "Turnovers",
-        "fg_pct": "FG%",
-        "fg3_pct": "3PT%",
-        "ft_pct": "FT%",
-        "plus_minus": "+/-",
-    }, inplace=True)
+    df = pd.DataFrame(rows)
 
-    df["Date"] = pd.to_datetime(df["Date"])
-    df.sort_values("Date", ascending=False, inplace=True)
+    if "Date" in df.columns:
+        df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
+        df.sort_values("Date", ascending=False, inplace=True)
 
     return df
 
