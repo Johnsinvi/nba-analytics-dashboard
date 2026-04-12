@@ -11,6 +11,18 @@ from nba_api.stats.endpoints import leaguegamelog
 SEASON = "2025-26"
 OUTPUT_PATH = "../data/raw/game_log.csv"
 
+HEADERS = {
+    "Host": "stats.nba.com",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Language": "en-US,en;q=0.9",
+    "Accept-Encoding": "gzip, deflate, br",
+    "x-nba-stats-origin": "stats",
+    "x-nba-stats-token": "true",
+    "Referer": "https://www.nba.com/",
+    "Connection": "keep-alive",
+}
+
 
 def fetch_game_log(season: str = SEASON) -> pd.DataFrame:
     print(f"Fetching game log for {season}...")
@@ -19,6 +31,7 @@ def fetch_game_log(season: str = SEASON) -> pd.DataFrame:
         season=season,
         player_or_team_abbreviation="T",  # Team level
         timeout=60,
+        headers=HEADERS,
     )
     time.sleep(1)
 

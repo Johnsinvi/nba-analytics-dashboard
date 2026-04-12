@@ -12,6 +12,18 @@ from nba_api.stats.static import players
 SEASON = "2025-26"
 OUTPUT_PATH = "../data/raw/player_stats.csv"
 
+HEADERS = {
+    "Host": "stats.nba.com",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Language": "en-US,en;q=0.9",
+    "Accept-Encoding": "gzip, deflate, br",
+    "x-nba-stats-origin": "stats",
+    "x-nba-stats-token": "true",
+    "Referer": "https://www.nba.com/",
+    "Connection": "keep-alive",
+}
+
 
 def fetch_player_stats(season: str = SEASON) -> pd.DataFrame:
     print(f"Fetching player stats for {season}...")
@@ -20,6 +32,7 @@ def fetch_player_stats(season: str = SEASON) -> pd.DataFrame:
         season=season,
         per_mode_detailed="PerGame",
         timeout=60,
+        headers=HEADERS,
     )
     time.sleep(1)  # respect NBA API rate limit
 
